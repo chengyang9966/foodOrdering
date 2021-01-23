@@ -1,17 +1,22 @@
 export type RootStackParamList = {
-  Root: undefined;
   NotFound: undefined;
+  HomePage: undefined;
+  Test: undefined;
+  Item: undefined;
 };
 
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+export type DrawerList = {
+  Home: undefined;
+  Orders: undefined;
+  Account: undefined;
+  Wallet: undefined;
+  Vouchers: undefined;
+  Help: undefined;
+  About: undefined;
+  Logout: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
-};
+export const SEARCH_LOCATION = "SEARCH_LOCATION";
+export const SELECT_TAB = "SELECT_TAB";
+export const RESET = "RESET";
+export const READY = "READY";
