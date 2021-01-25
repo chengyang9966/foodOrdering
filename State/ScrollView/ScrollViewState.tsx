@@ -10,16 +10,16 @@ export interface ScrollViewProps {
 const ScrollView = (props: any) => {
   const initialState: ScrollViewProps = {
     Restaurant: [
-      { itemName: "halal", id: "1" },
-      { itemName: "Vegetarian", id: "2" },
-      { itemName: "Drinks", id: "3" },
+      { itemName: "halal", id: "2111" },
+      { itemName: "Vegetarian", id: "2112" },
+      { itemName: "Drinks", id: "2113" },
     ],
 
     EachRestaurant: [
-      { itemName: "Info", id: "1" },
-      { itemName: "Noodle", id: "2" },
-      { itemName: "Drinks", id: "3" },
-      { itemName: "Snacks", id: "4" },
+      { itemName: "Info", id: "3111" },
+      { itemName: "Noodle", id: "3112" },
+      { itemName: "Drinks", id: "3113" },
+      { itemName: "Snacks", id: "3114" },
     ],
   };
 

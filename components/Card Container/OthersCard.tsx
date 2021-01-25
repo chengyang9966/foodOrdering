@@ -131,9 +131,28 @@ const AllergyAdvice = (props: any) => {
     </>
   );
 };
-const AddressContainer = (props: any) => {
-  //   const { id, halal, cuisine, distant, time, navigation } = props;
+interface Contact {
+  contact: {
+    Tel: string;
+    FullName: string;
+    Address: {
+      address1: string;
+      address2: string;
+      state: string;
+      county: string;
+      postcode: number;
+      country: string;
+    };
+  };
+}
 
+const AddressContainer = (props: Contact) => {
+  //   const { id, halal, cuisine, distant, time, navigation } = props;
+  const { contact } = props;
+  //   console.log(
+  //     "🚀 ~ file: OthersCard.tsx ~ line 137 ~ AddressContainer ~ contact",
+  //     contact
+  //   );
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <>
@@ -160,7 +179,15 @@ const AddressContainer = (props: any) => {
               fontSize: SmallFont,
             }}
           >
-            26,Jalan Jernai 9, Medan Idaman 53100 K.L.
+            {contact?.Address?.address1 +
+              "," +
+              contact?.Address?.address2 +
+              "," +
+              contact?.Address?.postcode +
+              "," +
+              contact?.Address?.county +
+              "," +
+              contact?.Address?.country}
           </Text>
         </View>
       </Cards>
@@ -168,89 +195,91 @@ const AddressContainer = (props: any) => {
   );
 };
 
-const itemContainer = (props: any) => {
+const ItemContainer = (props: any) => {
   const { id, halal, cuisine, distant, time, navigation } = props;
 
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
-  <Cards
-    containerStyle={{
-      backgroundColor: colors.cardBody,
-      padding: 0,
-    }}
-  >
-    <Cards.Divider />
-    <Card.Content
-      style={{
+  return (
+    <Cards
+      containerStyle={{
         backgroundColor: colors.cardBody,
         padding: 0,
       }}
     >
-      <Title
-        style={[
-          {
-            backgroundColor: colors.accent,
-            fontFamily: fontFamily,
-            fontSize: title,
-            color: colors.text,
-            fontWeight: "bold",
-            padding: 10,
-            marginTop: 0,
-          },
-          style.card,
-        ]}
+      <Cards.Divider />
+      <Card.Content
+        style={{
+          backgroundColor: colors.cardBody,
+          padding: 0,
+        }}
       >
-        INFO
-      </Title>
-      <Paragraph
-        style={[
-          {
-            fontFamily: fontFamily,
-            fontSize: title,
-            color: colors.text,
-            padding: 10,
-          },
-          style.card,
-        ]}
-      >
-        ~ {halal ? "Halal" : "Non-Halal"} ~
+        <Title
+          style={[
+            {
+              backgroundColor: colors.accent,
+              fontFamily: fontFamily,
+              fontSize: title,
+              color: colors.text,
+              fontWeight: "bold",
+              padding: 10,
+              marginTop: 0,
+            },
+            style.card,
+          ]}
+        >
+          INFO
+        </Title>
         <Paragraph
           style={[
             {
               fontFamily: fontFamily,
               fontSize: title,
               color: colors.text,
+              padding: 10,
             },
-            style.cuisine,
+            style.card,
           ]}
         >
-          {cuisine} ~
+          ~ {halal ? "Halal" : "Non-Halal"} ~
+          <Paragraph
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: title,
+                color: colors.text,
+              },
+              style.cuisine,
+            ]}
+          >
+            {cuisine} ~
+          </Paragraph>
         </Paragraph>
-      </Paragraph>
 
-      <Paragraph
-        style={[
-          { fontFamily: fontFamily, fontSize: SmallFont, color: colors.text },
-          style.distant,
-        ]}
-      >
-        {distant} KM
         <Paragraph
           style={[
-            {
-              fontFamily: fontFamily,
-              fontSize: SmallFont,
-              color: colors.text,
-            },
+            { fontFamily: fontFamily, fontSize: SmallFont, color: colors.text },
+            style.distant,
           ]}
         >
-          {time} MINS
+          {distant} KM
+          <Paragraph
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: SmallFont,
+                color: colors.text,
+              },
+            ]}
+          >
+            {time} MINS
+          </Paragraph>
         </Paragraph>
-      </Paragraph>
-    </Card.Content>
-  </Cards>;
+      </Card.Content>
+    </Cards>
+  );
 };
 
-export { AllergyAdvice, AddressContainer, InfoCardContainer, itemContainer };
+export { AllergyAdvice, AddressContainer, InfoCardContainer, ItemContainer };
 
 const style = StyleSheet.create({
   card: {

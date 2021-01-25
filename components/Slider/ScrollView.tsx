@@ -8,10 +8,7 @@ export interface ScrollViewProps {
 
 const ScrollViewContainer = (props: ScrollViewProps) => {
   const { list } = props;
-  console.log(
-    "🚀 ~ file: ScrollView.tsx ~ line 11 ~ ScrollViewContainer ~ list",
-    list[0].itemName
-  );
+
   const screenHeight = Dimensions.get("window").width;
   const [backGround, SetBackGround] = useState("");
   const locationContext = useContext(LocationContext);

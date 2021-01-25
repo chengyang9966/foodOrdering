@@ -5,25 +5,28 @@ import { useTheme } from "react-native-paper";
 import ScrollView from "../../components/Slider/ScrollView";
 import LocationContext from "../../State/Location/LocationContext";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";
+import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 import {
   InfoCardContainer,
   AllergyAdvice,
   AddressContainer,
+  ItemContainer,
 } from "../../components/Card Container/OthersCard";
 
 const EachItemInfo = (props: any) => {
-  console.log(
-    "🚀 ~ file: EachItemInfo.tsx ~ line 10 ~ EachItemInfo ~ props",
-    props
-  );
   const { navigation, route } = props;
   const { storeName, id } = route.params;
   const { colors } = useTheme();
   const scrollViewContext = useContext(ScrollViewContext);
   const locationContext = useContext(LocationContext);
-  const { EachRestaurant } = scrollViewContext;
+  const restaurantContext = useContext(RestaurantContext);
+  //   const { EachRestaurant } = scrollViewContext;
+  const { EachRestaurant } = restaurantContext;
   const { SelectedLocation, list, Tab, loading, Ready } = locationContext;
   const { primary, accent, text, background } = colors;
+  let StoreItem = EachRestaurant.filter((w) => Number(w.storeId) === id);
+  let StoreFoodItem = EachRestaurant.filter((w) => Number(w.storeId) === id)[0]
+    .TypesOfFood;
   return (
     <View
       style={[
@@ -32,7 +35,7 @@ const EachItemInfo = (props: any) => {
       ]}
     >
       <Header title={storeName} navigation={navigation} />
-      <ScrollView list={EachRestaurant} />
+      <ScrollView list={StoreFoodItem} />
       <View style={{ backgroundColor: accent }}>
         {list.map((x, index) => {
           if (x.id === id) {
@@ -48,11 +51,12 @@ const EachItemInfo = (props: any) => {
                   time={x?.time}
                 />
                 <AllergyAdvice />
-                <AddressContainer />
+                <AddressContainer contact={StoreItem[0].Contact} />
               </>
             );
           }
         })}
+        <ItemContainer />
       </View>
     </View>
   );
