@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { BackHandler, StyleSheet } from "react-native";
-import { View, Text, TextInput, Image } from "react-native";
+import { View, Text, TextInput, Image, Dimensions } from "react-native";
 import LocationContext from "../../State/Location/LocationContext";
 import { Colors, IconButton, Appbar } from "react-native-paper";
 
@@ -22,7 +22,8 @@ const SearchBar = (props: SearchBarProps) => {
     navigation,
     routeName,
   } = props;
-
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
   const locationContext = useContext(LocationContext);
   const { SearchLocation, Reset } = locationContext;
   const [text, SetText] = useState("");
@@ -56,23 +57,24 @@ const SearchBar = (props: SearchBarProps) => {
   const styles = StyleSheet.create({
     container: {
       zIndex: 10000,
-      position: "fixed",
+      position: "absolute",
       top: 0,
       flexDirection: "row",
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: focus.backgroundColor,
-      width: 400,
+
       height: 40,
     },
     navbar: {
-      flex: 1,
+      // flex: 2,
       paddingTop: 10,
       paddingRight: 10,
       paddingBottom: 10,
       paddingLeft: 0,
       marginLeft: 10,
       marginRight: 5,
+      width: (windowWidth * 90) / 100,
       backgroundColor: focus.backgroundColor,
     },
     searchIcon: {

@@ -1,6 +1,6 @@
 import { Icon } from "expo";
 import React, { useContext } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import LocationContext from "../../State/Location/LocationContext";
 import { Colors, useTheme, Appbar } from "react-native-paper";
 const Header = (props: any) => {
@@ -8,6 +8,9 @@ const Header = (props: any) => {
   const locationContext = useContext(LocationContext);
   const { Reset } = locationContext;
   const { colors, fontFamily, bodyFont } = useTheme();
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+
   return (
     <View
       style={[
@@ -15,11 +18,12 @@ const Header = (props: any) => {
           borderBottomWidth: 1,
           borderBottomColor: colors.text,
           backgroundColor: "white",
+          width: windowWidth,
         },
         styles.container,
       ]}
     >
-      <View style={styles.searchIcon}>
+      <View style={[{ width: windowWidth / 5 }, styles.searchIcon]}>
         <Appbar.Action
           icon="keyboard-backspace"
           color={Colors.red500}
@@ -32,7 +36,12 @@ const Header = (props: any) => {
       </View>
       <Text
         style={[
-          { fontWeight: "bold", fontFamily: fontFamily, fontSize: bodyFont },
+          {
+            fontWeight: "bold",
+            fontFamily: fontFamily,
+            fontSize: bodyFont,
+            width: windowWidth / 2 - 10,
+          },
           styles.title,
         ]}
       >
@@ -47,23 +56,22 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    position: "fixed",
+    position: "absolute",
     zIndex: 10000,
+    marginTop: 20,
     flexDirection: "row",
     top: 0,
     alignItems: "center",
-    width: "100%",
     height: 40,
   },
   searchIcon: {
     padding: 10,
-    width: "10%",
+    width: 200,
   },
   title: {
     paddingRight: 50,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "90%",
   },
 });

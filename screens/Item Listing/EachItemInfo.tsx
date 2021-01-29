@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView as ScrollViews,
+} from "react-native";
 import Header from "../../components/Header/Header";
 import { useTheme } from "react-native-paper";
 import ScrollView from "../../components/Slider/ScrollView";
@@ -23,46 +29,61 @@ const EachItemInfo = (props: any) => {
   //   const { EachRestaurant } = scrollViewContext;
   const { EachRestaurant } = restaurantContext;
   const { SelectedLocation, list, Tab, loading, Ready } = locationContext;
-  const { primary, accent, text, background } = colors;
+  const { primary, accent, text, cardBody, background } = colors;
   let StoreItem = EachRestaurant.filter((w) => Number(w.storeId) === id);
   let StoreFoodItem = EachRestaurant.filter((w) => Number(w.storeId) === id)[0]
     .TypesOfFood;
   return (
-    <View
-      style={[
-        { backgroundColor: background, maxHeight: "100%" },
-        styles.container,
-      ]}
-    >
+    <SafeAreaView style={[{ backgroundColor: background }, styles.container]}>
       <Header title={storeName} navigation={navigation} />
-      <ScrollView list={StoreFoodItem} />
-      <View style={{ backgroundColor: accent }}>
-        {list.map((x, index) => {
-          if (x.id === id) {
-            return (
-              <>
-                <InfoCardContainer
-                  key={index}
-                  id={x?.id}
-                  navigation={navigation}
-                  halal={x?.halal}
-                  cuisine={x?.cuisine}
-                  distant={x?.distant}
-                  time={x?.time}
-                />
-                <AllergyAdvice />
-                <AddressContainer contact={StoreItem[0].Contact} />
-              </>
-            );
-          }
-        })}
-        <ItemContainer />
-      </View>
-    </View>
+      <ScrollViews>
+        <View
+          style={[
+            { backgroundColor: background, marginBottom: 20 },
+            // styles.container,
+          ]}
+        >
+          <ScrollView list={StoreFoodItem} />
+          <View style={{ backgroundColor: accent }}>
+            {list.map((x, index) => {
+              if (x.id === id) {
+                return (
+                  <>
+                    <InfoCardContainer
+                      key={index}
+                      id={x?.id}
+                      navigation={navigation}
+                      halal={x?.halal}
+                      cuisine={x?.cuisine}
+                      distant={x?.distant}
+                      time={x?.time}
+                    />
+                    <AllergyAdvice />
+                    <AddressContainer contact={StoreItem[0].Contact} />
+                  </>
+                );
+              }
+            })}
+          </View>
+          {EachRestaurant.map((w) => {
+            if (Number(w.storeId) === Number(id)) {
+              return (
+                <>
+                  <ItemContainer TypesOfFood={w.TypesOfFood} />
+                </>
+              );
+            }
+          })}
+        </View>
+      </ScrollViews>
+    </SafeAreaView>
   );
 };
 export default EachItemInfo;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    overflow: "scroll",
+    flex: 10001,
+  },
 });

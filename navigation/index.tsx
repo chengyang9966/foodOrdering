@@ -58,7 +58,7 @@ const theme = {
     accent: "#E5E5E5",
     text: "#000000",
     headerBackground: "#E8E8E8",
-    cardBody: "FFFDFD",
+    cardBody: "#FFFDFD",
   },
 };
 

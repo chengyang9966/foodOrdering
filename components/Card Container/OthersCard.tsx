@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, Dimensions } from "react-native";
 import { Card as Cards } from "react-native-elements";
+import { OverlayExample } from "../../components/dialogBox/dialogbox";
 export interface CardContainerProps {
   halal: boolean;
   cuisine: string;
@@ -10,6 +11,10 @@ export interface CardContainerProps {
   id: number;
   navigation: any;
 }
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
 const InfoCardContainer = (props: CardContainerProps) => {
   const { id, halal, cuisine, distant, time, navigation } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
@@ -22,29 +27,33 @@ const InfoCardContainer = (props: CardContainerProps) => {
             "https://i.insider.com/59b9777c59d82e3f008b4745?width=1100&format=jpeg&auto=webp",
         }}
       /> */}
+      <Title
+        style={[
+          {
+            backgroundColor: colors.accent,
+            fontFamily: fontFamily,
+            fontSize: title,
+            width: windowWidth,
+            color: colors.text,
+            fontWeight: "bold",
+            padding: 10,
+            margin: 0,
+            marginTop: 0,
+            marginLeft: 0,
+          },
+          style.card,
+        ]}
+      >
+        INFO
+      </Title>
       <Card.Content
         style={{
           backgroundColor: colors.cardBody,
           padding: 0,
           marginBottom: 10,
+          marginLeft: 0,
         }}
       >
-        <Title
-          style={[
-            {
-              backgroundColor: colors.accent,
-              fontFamily: fontFamily,
-              fontSize: title,
-              color: colors.text,
-              fontWeight: "bold",
-              padding: 10,
-              marginTop: 0,
-            },
-            style.card,
-          ]}
-        >
-          INFO
-        </Title>
         <Paragraph
           style={[
             {
@@ -78,6 +87,7 @@ const InfoCardContainer = (props: CardContainerProps) => {
           ]}
         >
           {distant} KM
+          {"                                                            "}
           <Paragraph
             style={[
               {
@@ -124,7 +134,7 @@ const AllergyAdvice = (props: any) => {
               fontSize: SmallFont,
             }}
           >
-            Tap Here
+            <OverlayExample title="Tap Here" />
           </Text>
         </View>
       </Cards>
@@ -195,86 +205,89 @@ const AddressContainer = (props: Contact) => {
   );
 };
 
-const ItemContainer = (props: any) => {
-  const { id, halal, cuisine, distant, time, navigation } = props;
+interface Food {
+  TypesOfFood: Array<smallItem>;
+}
+interface smallItem {
+  itemName: string;
+  id: string;
+  item: Array<eachItem>;
+}
 
+interface eachItem {
+  id: string;
+  Name: string;
+  Allergy: string;
+  Price: number;
+  Quantity: number;
+}
+
+const ItemContainer = (props: Food) => {
+  const { TypesOfFood } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <Cards
       containerStyle={{
-        backgroundColor: colors.cardBody,
+        backgroundColor: colors.background,
         padding: 0,
+        margin: 0,
       }}
     >
-      <Cards.Divider />
-      <Card.Content
-        style={{
-          backgroundColor: colors.cardBody,
-          padding: 0,
-        }}
+      <Title
+        style={[
+          {
+            backgroundColor: colors.accent,
+            fontFamily: fontFamily,
+            fontSize: title,
+            color: colors.text,
+            fontWeight: "bold",
+            padding: 10,
+            marginTop: 20,
+            marginBottom: 0,
+          },
+          style.card,
+        ]}
       >
-        <Title
-          style={[
-            {
-              backgroundColor: colors.accent,
-              fontFamily: fontFamily,
-              fontSize: title,
-              color: colors.text,
-              fontWeight: "bold",
-              padding: 10,
-              marginTop: 0,
-            },
-            style.card,
-          ]}
-        >
-          INFO
-        </Title>
-        <Paragraph
-          style={[
-            {
-              fontFamily: fontFamily,
-              fontSize: title,
-              color: colors.text,
-              padding: 10,
-            },
-            style.card,
-          ]}
-        >
-          ~ {halal ? "Halal" : "Non-Halal"} ~
-          <Paragraph
-            style={[
-              {
-                fontFamily: fontFamily,
-                fontSize: title,
-                color: colors.text,
-              },
-              style.cuisine,
-            ]}
-          >
-            {cuisine} ~
-          </Paragraph>
-        </Paragraph>
+        {TypesOfFood[0].itemName}
+      </Title>
 
-        <Paragraph
-          style={[
-            { fontFamily: fontFamily, fontSize: SmallFont, color: colors.text },
-            style.distant,
-          ]}
-        >
-          {distant} KM
-          <Paragraph
-            style={[
-              {
-                fontFamily: fontFamily,
-                fontSize: SmallFont,
-                color: colors.text,
-              },
-            ]}
-          >
-            {time} MINS
-          </Paragraph>
-        </Paragraph>
-      </Card.Content>
+      {TypesOfFood[0].item.map((k, i) => {
+        return (
+          <View style={{ backgroundColor: colors.cardBody }}>
+            <Text
+              style={[
+                {
+                  fontFamily: fontFamily,
+                  fontSize: SmallFont,
+                  color: colors.text,
+                  fontWeight: "bold",
+                  paddingLeft: 10,
+                  paddingTop: 10,
+                  marginTop: 0,
+                },
+              ]}
+            >
+              {k.Name}
+            </Text>
+            <Text
+              style={[
+                {
+                  fontFamily: fontFamily,
+                  fontSize: SmallFont,
+                  color: colors.text,
+                  fontWeight: "bold",
+                  paddingLeft: 10,
+                  paddingBottom: 10,
+                },
+              ]}
+            >
+              RM {""}
+              {k.Price}
+            </Text>
+            <Cards.Divider style={{ height: 5 }} />
+          </View>
+        );
+      })}
     </Cards>
   );
 };
@@ -291,8 +304,8 @@ const style = StyleSheet.create({
   },
   distant: {
     display: "flex",
-    marginLeft: 40,
-    marginRight: 40,
+    marginLeft: 20,
+    marginRight: 20,
     justifyContent: "space-between",
     alignItems: "center",
   },

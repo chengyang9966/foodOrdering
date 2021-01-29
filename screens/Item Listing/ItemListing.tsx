@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from "react";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet, Button, ScrollView } from "react-native";
 import Navbar from "../../components/Navbar/Navbar";
 import SearchBar from "../../components/Search Bar/SearchBar";
 import ScrollViewContainer from "../../components/Slider/ScrollView";
 import CardContainer from "../../components/Card Container/CardContainer";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, Dimensions } from "react-native";
 import {
   SearchFunction,
   SelectTab,
@@ -22,6 +22,8 @@ const ItemListing = (props: any) => {
   const { Restaurant } = scrollViewContext;
   const { SelectedLocation, list, Tab, loading, Ready } = locationContext;
   const { colors } = useTheme();
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
 
   useEffect(() => {
     list.length > 0 && Ready();
@@ -37,21 +39,23 @@ const ItemListing = (props: any) => {
       />
 
       <ScrollViewContainer list={Restaurant} />
-      {SearchFunction(SelectedLocation, SelectTab(Tab, list), [
-        "storeName",
-        "cuisine",
-      ]).map((listItem, index) => (
-        <CardContainer
-          key={index}
-          id={listItem?.id}
-          navigation={navigation}
-          storeName={listItem?.storeName}
-          halal={listItem?.halal}
-          cuisine={listItem?.cuisine}
-          distant={listItem?.distant}
-          time={listItem?.time}
-        />
-      ))}
+      <ScrollView style={{ marginBottom: windowHeight / 5.5 }}>
+        {SearchFunction(SelectedLocation, SelectTab(Tab, list), [
+          "storeName",
+          "cuisine",
+        ]).map((listItem, index) => (
+          <CardContainer
+            key={index}
+            id={listItem?.id}
+            navigation={navigation}
+            storeName={listItem?.storeName}
+            halal={listItem?.halal}
+            cuisine={listItem?.cuisine}
+            distant={listItem?.distant}
+            time={listItem?.time}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -61,5 +65,7 @@ export default ItemListing;
 const styles = StyleSheet.create({
   container: {
     overflow: "hidden",
+    marginTop: 20,
+    marginBottom: 20,
   },
 });

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions, ScrollView, View, Text } from "react-native";
 export interface CardContainerProps {
   storeName: string;
   halal: boolean;
@@ -13,7 +13,8 @@ export interface CardContainerProps {
 
 const CardContainer = (props: CardContainerProps) => {
   const { id, storeName, halal, cuisine, distant, time, navigation } = props;
-
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <Card
@@ -68,14 +69,17 @@ const CardContainer = (props: CardContainerProps) => {
           </Paragraph>
         </Paragraph>
 
-        <Paragraph
-          style={[
-            { fontFamily: fontFamily, fontSize: SmallFont, color: colors.text },
-            style.distant,
-          ]}
+        <View
+          style={{
+            width: windowWidth,
+            marginLeft: 15,
+            marginRight: 15,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "stretch",
+          }}
         >
-          {distant} KM
-          <Paragraph
+          <Text
             style={[
               {
                 fontFamily: fontFamily,
@@ -84,9 +88,25 @@ const CardContainer = (props: CardContainerProps) => {
               },
             ]}
           >
-            {time} MINS
-          </Paragraph>
-        </Paragraph>
+            {distant} KM{" "}
+            {
+              "                                                                  "
+            }
+            <Text
+              style={[
+                {
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  fontFamily: fontFamily,
+                  fontSize: SmallFont,
+                  color: colors.text,
+                },
+              ]}
+            >
+              {time} MINS
+            </Text>
+          </Text>
+        </View>
       </Card.Content>
       {/* <Card.Cover source={} /> */}
     </Card>
@@ -101,12 +121,5 @@ const style = StyleSheet.create({
   },
   cuisine: {
     marginLeft: 10,
-  },
-  distant: {
-    display: "flex",
-    marginLeft: 20,
-    marginRight: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
   },
 });

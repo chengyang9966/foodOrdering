@@ -11,7 +11,10 @@ const HomeStackNavigator = (props: any) => {
   return (
     <Stack.Navigator
       // initialRouteName="Home"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: "#FFBBA6" },
+      }}
     >
       {/* <Stack.Screen
         name="Home"

@@ -13,6 +13,8 @@ const ScrollView = (props: any) => {
       { itemName: "halal", id: "2111" },
       { itemName: "Vegetarian", id: "2112" },
       { itemName: "Drinks", id: "2113" },
+      { itemName: "Spicy", id: "123132" },
+      { itemName: "Drinks", id: "2113" },
     ],
 
     EachRestaurant: [
