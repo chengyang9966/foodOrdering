@@ -25,5 +25,14 @@ const SelectTab = (text: string, Array: Array<any>) => {
     }
   });
 };
+const SelectDepartment = (text: string, Array: Array<any>) => {
+  return Array?.filter((k) => {
+    if (text === "" || text === null || text === "Info") {
+      return k;
+    } else if (k.itemName === text) {
+      return k;
+    }
+  });
+};
 
-export { SearchFunction, SelectTab };
+export { SearchFunction, SelectTab, SelectDepartment };

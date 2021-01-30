@@ -20,3 +20,4 @@ export const SEARCH_LOCATION = "SEARCH_LOCATION";
 export const SELECT_TAB = "SELECT_TAB";
 export const RESET = "RESET";
 export const READY = "READY";
+export const SELECETED_ITEM = "SELECETED_ITEM";

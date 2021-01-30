@@ -4,7 +4,7 @@ import { DrawerList } from "../types";
 import HomePage from "../screens/HomePage/HomePage";
 import ItemListing from "../screens/Item Listing/ItemListing";
 import EachItemInfo from "../screens/Item Listing/EachItemInfo";
-
+import EachFoodItem from "../screens/EachFoodItem/EachFoodItem";
 const Stack = createStackNavigator();
 
 const HomeStackNavigator = (props: any) => {
@@ -25,7 +25,8 @@ const HomeStackNavigator = (props: any) => {
       /> */}
       <Stack.Screen name="Home" component={HomePage} />
       <Stack.Screen name="Item" component={ItemListing} />
-      <Stack.Screen name=":Name" component={EachItemInfo} />
+      <Stack.Screen name="EachItem" component={EachItemInfo} />
+      <Stack.Screen name="FoodItem" component={EachFoodItem} />
       {/* <Stack.Screen name="NotFound" component={NotFoundScreen} /> */}
     </Stack.Navigator>
   );

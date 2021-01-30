@@ -1,14 +1,24 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from "react-native";
 import { useTheme } from "react-native-paper";
 const Spinner = (props: any) => {
   const { colors, title, fontFamily } = useTheme();
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
   return (
     <View style={[{ backgroundColor: colors.background }, styles.container]}>
       <ActivityIndicator size="large" color={colors.accent} />
+
       <Text
         style={[
           {
+            paddingLeft: windowWidth / 3,
             fontFamily: fontFamily,
             fontSize: title,
             fontWeight: "bold",
@@ -31,9 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   horizontal: {
-    display: "flex",
     paddingTop: 15,
-    flexDirection: "row",
     justifyContent: "center",
   },
 });

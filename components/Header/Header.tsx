@@ -23,7 +23,7 @@ const Header = (props: any) => {
         styles.container,
       ]}
     >
-      <View style={[{ width: windowWidth / 5 }, styles.searchIcon]}>
+      <View style={[{ width: windowWidth / 2.5 }, styles.searchIcon]}>
         <Appbar.Action
           icon="keyboard-backspace"
           color={Colors.red500}
@@ -40,7 +40,7 @@ const Header = (props: any) => {
             fontWeight: "bold",
             fontFamily: fontFamily,
             fontSize: bodyFont,
-            width: windowWidth / 2 - 10,
+            width: windowWidth,
           },
           styles.title,
         ]}
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 10,
-    width: 200,
   },
   title: {
     paddingRight: 50,

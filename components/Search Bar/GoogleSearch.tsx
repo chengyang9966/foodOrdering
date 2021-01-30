@@ -10,7 +10,7 @@ const GooglePlacesInput = (props: any) => {
       placeholder="Search Location"
       currentLocation={true}
       minLength={2} // minimum length of text to search
-      listViewDisplayed={false}
+      listViewDisplayed="auto"
       fetchDetails={true}
       onPress={(data, details = null) => {
         console.log(

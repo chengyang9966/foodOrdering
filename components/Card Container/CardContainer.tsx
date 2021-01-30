@@ -20,7 +20,7 @@ const CardContainer = (props: CardContainerProps) => {
     <Card
       style={{ backgroundColor: colors.background }}
       onPress={() =>
-        navigation.navigate(":Name", {
+        navigation.navigate("EachItem", {
           id: id,
           storeName: storeName,
         })

@@ -2,6 +2,11 @@ import React, { createContext } from "react";
 
 export interface RestaurantProps {
   EachRestaurant: Array<eachItem>;
+  SelectedItem: any;
+  SelectItem: (StoreId: string, FoodId: string) => void;
+  FilterItem: (props: string) => void;
+  loading: string;
+  Tab: string;
 }
 
 interface eachItem {
@@ -28,7 +33,16 @@ interface eachItem {
 interface smallItem {
   itemName: string;
   id: string;
-  item: Array<any>;
+  item: Array<eachFood>;
+}
+
+interface eachFood {
+  id: string;
+  itemName: string;
+  Description: string;
+  Price: number;
+  Quantity: number;
+  Allergy: string;
 }
 const RestaurantContext = createContext({} as RestaurantProps);
 

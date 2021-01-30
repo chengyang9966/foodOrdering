@@ -2,7 +2,10 @@ import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
 import { StyleSheet, View, Image, Text, Dimensions } from "react-native";
 import { Card as Cards } from "react-native-elements";
-import { OverlayExample } from "../../components/dialogBox/dialogbox";
+import { PhoneCall, Dialogbox } from "../../components/dialogBox/dialogbox";
+import Header from "@react-navigation/stack/lib/typescript/src/views/Header/Header";
+import RestaurantContext from "../../State/Restaurant/RestaurantContext";
+
 export interface CardContainerProps {
   halal: boolean;
   cuisine: string;
@@ -18,6 +21,7 @@ const windowHeight = Dimensions.get("window").height;
 const InfoCardContainer = (props: CardContainerProps) => {
   const { id, halal, cuisine, distant, time, navigation } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
+
   return (
     <Card>
       {/* <Card.Cover
@@ -105,8 +109,10 @@ const InfoCardContainer = (props: CardContainerProps) => {
   );
 };
 
-const AllergyAdvice = (props: any) => {
-  //   const { id, halal, cuisine, distant, time, navigation } = props;
+const AllergyAdvice = (props: Contact) => {
+  const { contact } = props;
+  const text: string = `iF YOU HAVE A FOOD ALLERGY OR INTOLERANCE (OR SOMEONE YOU ARE ORDERING FOR HAS),`;
+  const text2: string = ` PHONE THE RESTAURANT ON`;
 
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
@@ -134,7 +140,12 @@ const AllergyAdvice = (props: any) => {
               fontSize: SmallFont,
             }}
           >
-            <OverlayExample title="Tap Here" />
+            <PhoneCall
+              title="Tap Here"
+              text={text}
+              phoneNo={contact.Tel}
+              text2={text2}
+            />
           </Text>
         </View>
       </Cards>
@@ -207,88 +218,109 @@ const AddressContainer = (props: Contact) => {
 
 interface Food {
   TypesOfFood: Array<smallItem>;
+  navigation: any;
+  StoreName: any;
+  id: any;
 }
 interface smallItem {
   itemName: string;
   id: string;
-  item: Array<eachItem>;
+  item: Array<eachFood>;
 }
 
-interface eachItem {
+interface eachFood {
   id: string;
-  Name: string;
-  Allergy: string;
+  itemName: string;
+  Description: string;
   Price: number;
   Quantity: number;
+  Allergy: string;
 }
 
 const ItemContainer = (props: Food) => {
-  const { TypesOfFood } = props;
+  const restaurantContext = React.useContext(RestaurantContext);
+  const { SelectItem } = restaurantContext;
+  const { TypesOfFood, navigation, StoreName, id } = props;
+
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
-    <Cards
-      containerStyle={{
-        backgroundColor: colors.background,
-        padding: 0,
-        margin: 0,
-      }}
-    >
-      <Title
-        style={[
-          {
-            backgroundColor: colors.accent,
-            fontFamily: fontFamily,
-            fontSize: title,
-            color: colors.text,
-            fontWeight: "bold",
-            padding: 10,
-            marginTop: 20,
-            marginBottom: 0,
-          },
-          style.card,
-        ]}
-      >
-        {TypesOfFood[0].itemName}
-      </Title>
-
-      {TypesOfFood[0].item.map((k, i) => {
+    <>
+      {TypesOfFood.map((w, index) => {
         return (
-          <View style={{ backgroundColor: colors.cardBody }}>
-            <Text
+          <Cards
+            key={index}
+            containerStyle={{
+              backgroundColor: colors.background,
+              padding: 0,
+              margin: 0,
+            }}
+          >
+            <Title
               style={[
                 {
+                  backgroundColor: colors.accent,
                   fontFamily: fontFamily,
-                  fontSize: SmallFont,
+                  fontSize: title,
                   color: colors.text,
                   fontWeight: "bold",
-                  paddingLeft: 10,
-                  paddingTop: 10,
-                  marginTop: 0,
+                  padding: 10,
+                  marginTop: 20,
+                  marginBottom: 0,
                 },
+                style.card,
               ]}
             >
-              {k.Name}
-            </Text>
-            <Text
-              style={[
-                {
-                  fontFamily: fontFamily,
-                  fontSize: SmallFont,
-                  color: colors.text,
-                  fontWeight: "bold",
-                  paddingLeft: 10,
-                  paddingBottom: 10,
-                },
-              ]}
-            >
-              RM {""}
-              {k.Price}
-            </Text>
-            <Cards.Divider style={{ height: 5 }} />
-          </View>
+              {w.itemName}
+            </Title>
+
+            {w.item.map((k, i) => {
+              return (
+                <View key={i} style={{ backgroundColor: colors.cardBody }}>
+                  <Text
+                    onPress={() => {
+                      SelectItem(id, k.id);
+                      navigation.navigate("FoodItem", {
+                        id: id,
+                        storeName: StoreName,
+                      });
+                    }}
+                    style={[
+                      {
+                        fontFamily: fontFamily,
+                        fontSize: SmallFont,
+                        color: colors.text,
+                        fontWeight: "bold",
+                        paddingLeft: 10,
+                        paddingTop: 10,
+                        marginTop: 0,
+                      },
+                    ]}
+                  >
+                    {k.itemName}
+                  </Text>
+                  <Text
+                    style={[
+                      {
+                        fontFamily: fontFamily,
+                        fontSize: SmallFont,
+                        color: colors.text,
+                        fontWeight: "bold",
+                        paddingLeft: 10,
+                        paddingBottom: 10,
+                      },
+                    ]}
+                  >
+                    RM {""}
+                    {k.Price}
+                  </Text>
+                  <Cards.Divider style={{ height: 5 }} />
+                </View>
+              );
+            })}
+          </Cards>
         );
       })}
-    </Cards>
+    </>
   );
 };
 

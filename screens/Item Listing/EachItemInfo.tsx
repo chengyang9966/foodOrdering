@@ -18,21 +18,27 @@ import {
   AddressContainer,
   ItemContainer,
 } from "../../components/Card Container/OthersCard";
+import { SelectDepartment } from "../../components/Search Bar/Searchfunction";
 
 const EachItemInfo = (props: any) => {
   const { navigation, route } = props;
   const { storeName, id } = route.params;
   const { colors } = useTheme();
-  const scrollViewContext = useContext(ScrollViewContext);
   const locationContext = useContext(LocationContext);
   const restaurantContext = useContext(RestaurantContext);
-  //   const { EachRestaurant } = scrollViewContext;
-  const { EachRestaurant } = restaurantContext;
-  const { SelectedLocation, list, Tab, loading, Ready } = locationContext;
+  const { EachRestaurant, Tab } = restaurantContext;
+  const { SelectedLocation, list, loading, Ready } = locationContext;
   const { primary, accent, text, cardBody, background } = colors;
   let StoreItem = EachRestaurant.filter((w) => Number(w.storeId) === id);
-  let StoreFoodItem = EachRestaurant.filter((w) => Number(w.storeId) === id)[0]
-    .TypesOfFood;
+  let StoreFoodItem: any[] = [];
+  EachRestaurant.filter((w) => Number(w.storeId) === id)[0].TypesOfFood.map(
+    (k) =>
+      StoreFoodItem.push({
+        itemName: k.itemName,
+        id: k.id,
+      })
+  );
+  StoreFoodItem.splice(0, 0, { itemName: "Info", id: "1212311123" });
   return (
     <SafeAreaView style={[{ backgroundColor: background }, styles.container]}>
       <Header title={storeName} navigation={navigation} />
@@ -58,7 +64,7 @@ const EachItemInfo = (props: any) => {
                       distant={x?.distant}
                       time={x?.time}
                     />
-                    <AllergyAdvice />
+                    <AllergyAdvice contact={StoreItem[0].Contact} />
                     <AddressContainer contact={StoreItem[0].Contact} />
                   </>
                 );
@@ -69,7 +75,12 @@ const EachItemInfo = (props: any) => {
             if (Number(w.storeId) === Number(id)) {
               return (
                 <>
-                  <ItemContainer TypesOfFood={w.TypesOfFood} />
+                  <ItemContainer
+                    StoreName={storeName}
+                    id={id}
+                    navigation={navigation}
+                    TypesOfFood={SelectDepartment(Tab, w.TypesOfFood)}
+                  />
                 </>
               );
             }
