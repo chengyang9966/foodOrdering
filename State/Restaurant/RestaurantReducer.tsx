@@ -1,39 +1,4 @@
-import { SELECETED_ITEM, SELECT_TAB } from "../../types";
-
-interface eachItem {
-  storeId: any;
-  storeName: string;
-  key: any;
-  Contact: {
-    Tel: string;
-    FullName: string;
-    Address: {
-      address1: string;
-      address2: string;
-      state: string;
-      county: string;
-      postcode: number;
-      country: string;
-    };
-  };
-  TypesOfFood: Array<smallItem>;
-  // Snacks: any;
-  // Drinks: any;
-}
-
-interface smallItem {
-  itemName: string;
-  id: string;
-  item: Array<item>;
-}
-interface item {
-  id: string;
-  itemName: string;
-  Description: string;
-  Price: number;
-  Quantity: number;
-  Allergy: string;
-}
+import { SELECETED_ITEM, SELECT_TAB, READY } from "../../types";
 
 export default (state: any, action: any) => {
   switch (action.type) {
@@ -48,7 +13,11 @@ export default (state: any, action: any) => {
         Tab: action.payload,
         loading: false,
       };
-
+    case READY:
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

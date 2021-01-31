@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
 import { StyleSheet, View, Image, Text, Dimensions } from "react-native";
-import { Card as Cards } from "react-native-elements";
+import { Card as Cards, Divider } from "react-native-elements";
 import { PhoneCall, Dialogbox } from "../../components/dialogBox/dialogbox";
 import Header from "@react-navigation/stack/lib/typescript/src/views/Header/Header";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
+import { AmtStr } from "../../Function/AmountFunction";
 
 export interface CardContainerProps {
   halal: boolean;
@@ -54,7 +55,6 @@ const InfoCardContainer = (props: CardContainerProps) => {
         style={{
           backgroundColor: colors.cardBody,
           padding: 0,
-          marginBottom: 10,
           marginLeft: 0,
         }}
       >
@@ -83,15 +83,25 @@ const InfoCardContainer = (props: CardContainerProps) => {
             {cuisine} ~
           </Paragraph>
         </Paragraph>
-
-        <Paragraph
-          style={[
-            { fontFamily: fontFamily, fontSize: SmallFont, color: colors.text },
-            style.distant,
-          ]}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginLeft: 20,
+            marginRight: 20,
+          }}
         >
-          {distant} KM
-          {"                                                            "}
+          <Paragraph
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: SmallFont,
+                color: colors.text,
+              },
+            ]}
+          >
+            {distant} KM
+          </Paragraph>
           <Paragraph
             style={[
               {
@@ -103,7 +113,7 @@ const InfoCardContainer = (props: CardContainerProps) => {
           >
             {time} MINS
           </Paragraph>
-        </Paragraph>
+        </View>
       </Card.Content>
     </Card>
   );
@@ -170,10 +180,10 @@ interface Contact {
 const AddressContainer = (props: Contact) => {
   //   const { id, halal, cuisine, distant, time, navigation } = props;
   const { contact } = props;
-  //   console.log(
-  //     "🚀 ~ file: OthersCard.tsx ~ line 137 ~ AddressContainer ~ contact",
-  //     contact
-  //   );
+  // //   console.log(
+  // //     "🚀 ~ file: OthersCard.tsx ~ line 137 ~ AddressContainer ~ contact",
+  // //     contact
+  // //   );
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <>
@@ -275,45 +285,56 @@ const ItemContainer = (props: Food) => {
 
             {w.item.map((k, i) => {
               return (
-                <View key={i} style={{ backgroundColor: colors.cardBody }}>
-                  <Text
-                    onPress={() => {
-                      SelectItem(id, k.id);
-                      navigation.navigate("FoodItem", {
-                        id: id,
-                        storeName: StoreName,
-                      });
-                    }}
-                    style={[
-                      {
-                        fontFamily: fontFamily,
-                        fontSize: SmallFont,
-                        color: colors.text,
-                        fontWeight: "bold",
-                        paddingLeft: 10,
-                        paddingTop: 10,
-                        marginTop: 0,
-                      },
-                    ]}
-                  >
-                    {k.itemName}
-                  </Text>
-                  <Text
-                    style={[
-                      {
-                        fontFamily: fontFamily,
-                        fontSize: SmallFont,
-                        color: colors.text,
-                        fontWeight: "bold",
-                        paddingLeft: 10,
-                        paddingBottom: 10,
-                      },
-                    ]}
-                  >
-                    RM {""}
-                    {k.Price}
-                  </Text>
-                  <Cards.Divider style={{ height: 5 }} />
+                <View
+                  key={i}
+                  style={{ backgroundColor: colors.cardBody, paddingBottom: 0 }}
+                >
+                  <View>
+                    <Text
+                      onPress={() => {
+                        SelectItem(id, k.id);
+                        navigation.navigate("FoodItem", {
+                          id: id,
+                          storeName: StoreName,
+                          EachItem: k,
+                          description: true,
+                        });
+                      }}
+                      style={[
+                        {
+                          fontFamily: fontFamily,
+                          fontSize: SmallFont,
+                          color: colors.text,
+                          fontWeight: "bold",
+                          paddingLeft: 10,
+                          paddingTop: 10,
+                          marginTop: 0,
+                        },
+                      ]}
+                    >
+                      {k.itemName}
+                    </Text>
+                    <Text
+                      style={[
+                        {
+                          fontFamily: fontFamily,
+                          fontSize: SmallFont,
+                          color: colors.text,
+                          fontWeight: "bold",
+                          paddingLeft: 10,
+                          paddingBottom: 10,
+                        },
+                      ]}
+                    >
+                      {AmtStr(k.Price)}
+                    </Text>
+                  </View>
+                  {i + 1 === w.item.length ? null : (
+                    <Divider
+                      style={{ height: 6, backgroundColor: colors.accent }}
+                    />
+                  )}
+                  {/* <Cards.Divider style={{ height: 5 }} /> */}
                 </View>
               );
             })}
@@ -336,8 +357,6 @@ const style = StyleSheet.create({
   },
   distant: {
     display: "flex",
-    marginLeft: 20,
-    marginRight: 20,
     justifyContent: "space-between",
     alignItems: "center",
   },

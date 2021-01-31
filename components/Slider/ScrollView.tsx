@@ -43,7 +43,6 @@ const ScrollViewContainer = (props: ScrollViewProps) => {
         <Text>
           {list.map((k, i) => (
             <View key={i}>
-              {console.log(k.itemName)}
               <Text
                 key={i}
                 onPress={() => {

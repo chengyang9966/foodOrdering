@@ -5,10 +5,7 @@ import SearchBar from "../../components/Search Bar/SearchBar";
 import ScrollViewContainer from "../../components/Slider/ScrollView";
 import CardContainer from "../../components/Card Container/CardContainer";
 import { View, Text, TextInput, Dimensions } from "react-native";
-import {
-  SearchFunction,
-  SelectTab,
-} from "../../components/Search Bar/Searchfunction";
+import { SearchFunction, SelectTab } from "../../Function/Searchfunction";
 
 import LocationContext from "../../State/Location/LocationContext";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";

@@ -19,6 +19,7 @@ import DrawerConfig from "./DrawerStackNavigation";
 import LocationStore from "../State/Location/LocationState";
 import ScrollView from "../State/ScrollView/ScrollViewState";
 import RestaurantState from "../State/Restaurant/RestaurantState";
+import AccountState from "../State/Account/AccountState";
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
 export default function Navigation({
@@ -28,18 +29,20 @@ export default function Navigation({
 }) {
   return (
     <ScrollView>
-      <LocationStore>
-        <RestaurantState>
-          <NavigationContainer
-            // linking={LinkingConfiguration}
-            theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <PaperProvider theme={theme}>
-              <HomeStackNavigator />
-            </PaperProvider>
-          </NavigationContainer>
-        </RestaurantState>
-      </LocationStore>
+      <AccountState>
+        <LocationStore>
+          <RestaurantState>
+            <NavigationContainer
+              // linking={LinkingConfiguration}
+              theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            >
+              <PaperProvider theme={theme}>
+                <HomeStackNavigator />
+              </PaperProvider>
+            </NavigationContainer>
+          </RestaurantState>
+        </LocationStore>
+      </AccountState>
     </ScrollView>
   );
 }
@@ -59,6 +62,7 @@ const theme = {
     text: "#000000",
     headerBackground: "#E8E8E8",
     cardBody: "#FFFDFD",
+    cardBackground: "#c4c4c4",
   },
 };
 

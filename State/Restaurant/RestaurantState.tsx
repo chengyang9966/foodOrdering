@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import RestaurantContext from "./RestaurantContext";
 import RestaurantReducer from "./RestaurantReducer";
-import { SELECETED_ITEM, SELECT_TAB } from "../../types";
+import { SELECETED_ITEM, SELECT_TAB, READY } from "../../types";
 const RestaurantState = (props: any) => {
   const initialState = {
     EachRestaurant: [
@@ -31,6 +31,7 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "00002",
@@ -38,6 +39,7 @@ const RestaurantState = (props: any) => {
                 Price: 10,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "00003",
@@ -45,6 +47,7 @@ const RestaurantState = (props: any) => {
                 Price: 5.5,
                 Quantity: 50,
                 Allergy: "Prawn",
+                Description: "This is the description",
               },
               {
                 id: "00004",
@@ -52,6 +55,7 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "00005",
@@ -59,13 +63,15 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "00006",
                 itemName: "Ban Mian",
-                Price: 5,
+                Price: 25,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
             ],
           },
@@ -79,6 +85,7 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "0002",
@@ -86,6 +93,7 @@ const RestaurantState = (props: any) => {
                 Price: 10,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "0003",
@@ -93,6 +101,7 @@ const RestaurantState = (props: any) => {
                 Price: 5.5,
                 Quantity: 50,
                 Allergy: "Prawn",
+                Description: "This is the description",
               },
               {
                 id: "0004",
@@ -100,6 +109,7 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "0005",
@@ -107,6 +117,7 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
               {
                 id: "0006",
@@ -114,6 +125,7 @@ const RestaurantState = (props: any) => {
                 Price: 5,
                 Quantity: 50,
                 Allergy: "",
+                Description: "This is the description",
               },
             ],
           },
@@ -242,6 +254,11 @@ const RestaurantState = (props: any) => {
     //   action:
     // })
   };
+  const Ready = () => {
+    dispatch({
+      type: READY,
+    });
+  };
 
   return (
     <RestaurantContext.Provider
@@ -252,6 +269,7 @@ const RestaurantState = (props: any) => {
         EachRestaurant: state.EachRestaurant,
         SelectItem,
         FilterItem,
+        Ready,
       }}
     >
       {props.children}

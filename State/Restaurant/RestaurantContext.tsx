@@ -5,6 +5,7 @@ export interface RestaurantProps {
   SelectedItem: any;
   SelectItem: (StoreId: string, FoodId: string) => void;
   FilterItem: (props: string) => void;
+  Ready: () => void;
   loading: string;
   Tab: string;
 }
