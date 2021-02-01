@@ -3,7 +3,13 @@ import React, { useContext } from "react";
 import { View, StyleSheet, Text, Dimensions } from "react-native";
 import LocationContext from "../../State/Location/LocationContext";
 import { Colors, useTheme, Appbar } from "react-native-paper";
-const Header = (props: any) => {
+
+interface Header {
+  navigation: any;
+  title: string | any;
+}
+
+const Header = (props: Header) => {
   const { navigation, title } = props;
   const locationContext = useContext(LocationContext);
   const { Reset } = locationContext;
@@ -23,7 +29,7 @@ const Header = (props: any) => {
         styles.container,
       ]}
     >
-      <View style={[{ width: windowWidth / 2.5 }, styles.searchIcon]}>
+      <View style={[styles.searchIcon]}>
         <Appbar.Action
           icon="keyboard-backspace"
           color={Colors.red500}
@@ -34,21 +40,23 @@ const Header = (props: any) => {
           }}
         />
       </View>
-      <Text
-        style={[
-          {
-            fontWeight: "bold",
-            fontFamily: fontFamily,
-            fontSize: bodyFont,
-            width: windowWidth,
-          },
-          styles.title,
-        ]}
-      >
-        {title}
-      </Text>
-      <></>
-      <></>
+      <View>
+        <Text
+          style={[
+            {
+              marginLeft: -40,
+              textAlign: "center",
+              fontWeight: "bold",
+              fontFamily: fontFamily,
+              fontSize: bodyFont,
+              width: windowWidth,
+            },
+            styles.title,
+          ]}
+        >
+          {title}
+        </Text>
+      </View>
     </View>
   );
 };

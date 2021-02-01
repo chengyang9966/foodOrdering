@@ -13,6 +13,7 @@ interface footerButton {
   title: string;
   amount: string | number;
   uppercase?: boolean;
+  onClick?: () => void;
 }
 interface BasicButton {
   title: string;
@@ -51,10 +52,17 @@ const FooterButton = (props: footerButton) => {
   const { uppercase, amount } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
-    <View>
+    <View
+      style={{
+        zIndex: 100,
+        position: "absolute",
+        bottom: 0,
+        width: windowWidth,
+      }}
+    >
       <TouchableOpacity
         style={[{ backgroundColor: colors.primary }, style.footerButton]}
-        // onPress={() => Linking.openURL(`tel:${props.phoneNo}`)}
+        onPress={props.onClick}
       >
         <View
           style={{

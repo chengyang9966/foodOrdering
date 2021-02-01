@@ -35,16 +35,17 @@ const EachItemInfo = (props: any) => {
   const [Amount, TotalAmount] = useState(0);
   useEffect(() => {
     var AMT = 0;
-    Item.length > 0 &&
+    Item.length !== 0 &&
       Item.map((w) => {
-        AMT = +w.TotalAmount;
+        console.log(w.itemName, w.TotalAmount);
+        AMT = AMT + w.TotalAmount;
       });
     TotalAmount(AMT);
   }, [Item]);
-  console.log(
-    "🚀 ~ file: EachItemInfo.tsx ~ line 35 ~ EachItemInfo ~ Item",
-    Item
-  );
+  // console.log(
+  //   "🚀 ~ file: EachItemInfo.tsx ~ line 35 ~ EachItemInfo ~ Item",
+  //   Item
+  // );
   const { primary, accent, text, cardBody, background } = colors;
 
   useEffect(() => {
@@ -120,7 +121,17 @@ const EachItemInfo = (props: any) => {
         </View>
       </ScrollViews>
       {Item.length > 0 && (
-        <FooterButton title="View Order" uppercase amount={Amount} />
+        <FooterButton
+          onClick={() =>
+            navigation.navigate("CheckOut", {
+              storeName,
+              id,
+            })
+          }
+          title="View Order"
+          uppercase
+          amount={Amount}
+        />
       )}
     </SafeAreaView>
   );

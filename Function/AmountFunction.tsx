@@ -5,10 +5,6 @@ interface Number {
 }
 
 const AmtStr = (amount: string | number) => {
-  console.log(
-    "🚀 ~ file: AmountFunction.tsx ~ line 8 ~ AmtStr ~ amount",
-    amount
-  );
   if (!amount && amount !== 0) return "";
   const sign =
     Math.abs(typeof amount === "number" ? amount : Number(amount)) === amount

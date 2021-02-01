@@ -5,6 +5,8 @@ import HomePage from "../screens/HomePage/HomePage";
 import ItemListing from "../screens/Item Listing/ItemListing";
 import EachItemInfo from "../screens/Item Listing/EachItemInfo";
 import EachFoodItem from "../screens/EachFoodItem/EachFoodItem";
+import Checkout from "../screens/CheckOut/CheckOut";
+import { TransitionPresets } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 const HomeStackNavigator = (props: any) => {
@@ -27,6 +29,14 @@ const HomeStackNavigator = (props: any) => {
       <Stack.Screen name="Item" component={ItemListing} />
       <Stack.Screen name="EachItem" component={EachItemInfo} />
       <Stack.Screen name="FoodItem" component={EachFoodItem} />
+      <Stack.Screen
+        name="CheckOut"
+        component={Checkout}
+        options={{
+          ...TransitionPresets.FadeFromBottomAndroid,
+        }}
+      />
+
       {/* <Stack.Screen name="NotFound" component={NotFoundScreen} /> */}
     </Stack.Navigator>
   );
