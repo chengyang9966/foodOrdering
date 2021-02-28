@@ -4,6 +4,7 @@ export interface ScrollViewContext {
   Restaurant: Array<any>;
   EachRestaurant: Array<any>;
   CheckOut: Array<any>;
+  Payment: Array<any>;
 }
 
 const ScrollViewContext = createContext({} as ScrollViewContext);

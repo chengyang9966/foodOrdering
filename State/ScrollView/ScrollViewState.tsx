@@ -6,6 +6,7 @@ export interface ScrollViewProps {
   Restaurant: Array<any>;
   EachRestaurant: Array<any>;
   CheckOut: Array<any>;
+  Payment: Array<any>;
 }
 
 const ScrollView = (props: any) => {
@@ -29,6 +30,10 @@ const ScrollView = (props: any) => {
       { itemName: "Delivery", id: "4112" },
       { itemName: "Eat In", id: "4113" },
     ],
+    Payment: [
+      { itemName: "Trees", id: "5111" },
+      { itemName: "cutleries", id: "5112" },
+    ],
   };
 
   const [state, dispatch] = useReducer(ScrollViewReducer, initialState);
@@ -39,6 +44,7 @@ const ScrollView = (props: any) => {
         Restaurant: state?.Restaurant,
         EachRestaurant: state?.EachRestaurant,
         CheckOut: state?.CheckOut,
+        Payment: state?.Payment,
       }}
     >
       {props.children}

@@ -18,7 +18,7 @@ import {
   AddressContainer,
   ItemContainer,
 } from "../../components/Card Container/OthersCard";
-import { SelectDepartment } from "../../src/Function/Searchfunction";
+import { SelectDepartment } from "../../Helper/Function/Searchfunction";
 import Spinner from "../../components/Spinner/Spinner";
 import { FooterButton } from "../../components/button/Button";
 
@@ -29,7 +29,17 @@ const EachItemInfo = (props: any) => {
   const locationContext = useContext(LocationContext);
   const accountContext = useContext(AccountContext);
   const restaurantContext = useContext(RestaurantContext);
-  const { EachRestaurant, Tab, loading, Ready } = restaurantContext;
+  const {
+    EachRestaurant,
+    Tab,
+    loading,
+    Ready,
+    SelectedItem,
+  } = restaurantContext;
+  console.log(
+    "🚀 ~ file: EachItemInfo.tsx ~ line 39 ~ EachItemInfo ~ SelectedItem",
+    Tab
+  );
   const { SelectedLocation, list } = locationContext;
   const { Item } = accountContext;
   const [Amount, TotalAmount] = useState(0);
@@ -76,41 +86,49 @@ const EachItemInfo = (props: any) => {
             },
           ]}
         >
-          <ScrollViewContainer list={StoreFoodItem} />
-          <View style={{ backgroundColor: accent }}>
-            {list.map((x, index) => {
-              if (x.id === id) {
+          <ScrollViewContainer
+            list={StoreFoodItem}
+            title="IndividualRestaurant"
+          />
+          {(Tab === "" || Tab === "Info") && (
+            <View style={{ backgroundColor: accent }}>
+              {list.map((x, index) => {
+                if (x.id === id) {
+                  return (
+                    <React.Fragment key={`${x}${index}`}>
+                      <InfoCardContainer
+                        id={x?.id}
+                        navigation={navigation}
+                        halal={x?.halal}
+                        cuisine={x?.cuisine}
+                        distant={x?.distant}
+                        time={x?.time}
+                      />
+                      <AllergyAdvice contact={StoreItem[0].Contact} />
+                      <AddressContainer contact={StoreItem[0].Contact} />
+                    </React.Fragment>
+                  );
+                }
+              })}
+            </View>
+          )}
+          {Tab !== "" &&
+            EachRestaurant.map((w, index) => {
+              if (Number(w.storeId) === Number(id)) {
                 return (
-                  <React.Fragment key={`${x}${index}`}>
-                    <InfoCardContainer
-                      id={x?.id}
+                  <React.Fragment
+                    key={`${w}${index}SADVDFNFDDFGM RGRESQ242134`}
+                  >
+                    <ItemContainer
+                      StoreName={storeName}
+                      id={id}
                       navigation={navigation}
-                      halal={x?.halal}
-                      cuisine={x?.cuisine}
-                      distant={x?.distant}
-                      time={x?.time}
+                      TypesOfFood={SelectDepartment(Tab, w.TypesOfFood)}
                     />
-                    <AllergyAdvice contact={StoreItem[0].Contact} />
-                    <AddressContainer contact={StoreItem[0].Contact} />
                   </React.Fragment>
                 );
               }
             })}
-          </View>
-          {EachRestaurant.map((w, index) => {
-            if (Number(w.storeId) === Number(id)) {
-              return (
-                <React.Fragment key={`${w}${index}SADVDFNFDDFGM RGRESQ242134`}>
-                  <ItemContainer
-                    StoreName={storeName}
-                    id={id}
-                    navigation={navigation}
-                    TypesOfFood={SelectDepartment(Tab, w.TypesOfFood)}
-                  />
-                </React.Fragment>
-              );
-            }
-          })}
         </View>
       </ScrollViews>
       {Item.length > 0 && (

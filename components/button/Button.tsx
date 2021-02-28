@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useTheme } from "react-native-paper";
-import { AmtStr } from "../../src/Function/AmountFunction";
+import { AmtStr } from "../../Helper/Function/AmountFunction";
 
 interface footerButton {
   title: string;

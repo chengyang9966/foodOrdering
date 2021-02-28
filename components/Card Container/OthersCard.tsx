@@ -14,7 +14,7 @@ import { PhoneCall, Dialogbox } from "../../components/dialogBox/dialogbox";
 import Header from "@react-navigation/stack/lib/typescript/src/views/Header/Header";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 import AccountContext from "../../State/Account/AccountContext";
-import { AmtStr } from "../../src/Function/AmountFunction";
+import { AmtStr } from "../../Helper/Function/AmountFunction";
 
 export interface CardContainerProps {
   halal: boolean;
@@ -260,6 +260,18 @@ interface Notes {
   Name: string;
   id: any;
 }
+interface Payment {
+  styles?: StyleProp<ViewStyle>;
+  PaymentDetails?: {
+    Name: string;
+    Number: number | string;
+  };
+  navigation: any;
+  StoreName: any;
+  Name: string;
+  SubTitle?: string;
+  id: any;
+}
 interface CheckOutItem {
   Allergy: string;
   Description: string;
@@ -424,13 +436,121 @@ const NotesContainer = (props: Notes) => {
                 fontSize: SmallFont,
                 color: colors.text,
                 fontWeight: "bold",
-                paddingLeft: 10,
-                paddingBottom: 10,
+                padding: 10,
               },
             ]}
           >
             {Item[0].Notes}
           </Text>
+        )}
+      </Cards>
+    </>
+  );
+};
+const PaymentContainer = (props: Payment) => {
+  const accountContext = React.useContext(AccountContext);
+  const { Item, SumAmount } = accountContext;
+
+  const {
+    PaymentDetails,
+    navigation,
+    StoreName,
+    id,
+    Name,
+    styles,
+    SubTitle,
+  } = props;
+
+  const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
+  return (
+    <>
+      <Cards
+        containerStyle={{
+          backgroundColor: colors.background,
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        <Title
+          style={[
+            {
+              backgroundColor: colors.accent,
+              // fontFamily: fontFamily,
+              // fontSize: title,
+              textTransform: "uppercase",
+              color: colors.text,
+              fontWeight: "bold",
+              padding: 10,
+              marginTop: 20,
+              marginBottom: 0,
+            },
+            style.card,
+          ]}
+        >
+          {Name}
+        </Title>
+
+        {PaymentDetails !== undefined && (
+          <View
+            style={[
+              style.CheckOutItem,
+              {
+                backgroundColor: colors.cardBody,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                {
+                  backgroundColor: colors.cardBody,
+                  fontFamily: fontFamily,
+                  fontSize: bodyFont,
+                  color: colors.text,
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              {PaymentDetails?.Name}
+            </Text>
+            <Text
+              style={[
+                {
+                  backgroundColor: colors.cardBody,
+                  fontFamily: fontFamily,
+                  fontSize: bodyFont,
+                  color: colors.text,
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              {PaymentDetails?.Number}
+            </Text>
+          </View>
+        )}
+        {SubTitle !== undefined && (
+          <View
+            style={[
+              style.CheckOutItem,
+              {
+                backgroundColor: colors.cardBody,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                {
+                  textTransform: "uppercase",
+                  backgroundColor: colors.cardBody,
+                  fontFamily: fontFamily,
+                  fontSize: SmallFont,
+                  color: colors.primary,
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              {SubTitle}
+            </Text>
+          </View>
         )}
       </Cards>
     </>
@@ -671,6 +791,7 @@ export {
   ItemContainer,
   CheckOutContainer,
   NotesContainer,
+  PaymentContainer,
 };
 
 const style = StyleSheet.create({

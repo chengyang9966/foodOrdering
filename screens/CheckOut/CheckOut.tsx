@@ -15,7 +15,10 @@ import {
   NotesContainer,
 } from "../../components/Card Container/OthersCard";
 import Spinner from "../../components/Spinner/Spinner";
-import { add_minutes, totalTimeNeeded } from "../../src/Function/TimeFunction";
+import {
+  add_minutes,
+  totalTimeNeeded,
+} from "../../Helper/Function/TimeFunction";
 import { FooterButton } from "../../components/button/Button";
 import AccountContext from "../../State/Account/AccountContext";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
@@ -109,7 +112,18 @@ const Checkout = (props: any) => {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <FooterButton title="CheckOut" amount={Amount} uppercase />
+      <FooterButton
+        title="CheckOut"
+        amount={Amount}
+        uppercase
+        onClick={() =>
+          navigation.navigate("Payment", {
+            id,
+            storeName,
+            Amount,
+          })
+        }
+      />
     </>
   );
 };

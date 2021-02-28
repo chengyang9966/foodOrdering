@@ -15,11 +15,16 @@ import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 export interface ScrollViewProps {
   styles?: StyleProp<ViewStyle>;
   title?: string;
+  upperCase?: boolean;
   list: Array<any>;
 }
 
 const ScrollViewContainer = (props: ScrollViewProps) => {
-  const { list, styles, title } = props;
+  const { list, styles, title, upperCase } = props;
+  console.log(
+    "🚀 ~ file: ScrollView.tsx ~ line 24 ~ ScrollViewContainer ~ title",
+    title
+  );
 
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
@@ -51,15 +56,16 @@ const ScrollViewContainer = (props: ScrollViewProps) => {
       ? SelectCheckOutMethod(text)
       : list[0].id === "3111"
       ? SelectItem(text)
-      : FilterItem(text);
+      : title === "IndividualRestaurant" &&
+        (console.log(text), FilterItem(text));
   };
 
   return (
     <ScrollView horizontal={true}>
       <View
         style={[
+          upperCase && { width: windowWidth },
           {
-            // width: windowWidth * 2,
             marginTop: 50,
             // marginBottom: 21,
           },
@@ -68,14 +74,28 @@ const ScrollViewContainer = (props: ScrollViewProps) => {
       >
         <Text>
           {list.map((k, i) => (
-            <View key={`${k}${i}`}>
+            <View
+              key={`${k}${i}`}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Text
                 key={i}
                 onPress={() => {
                   changeColour(k.id);
                   SelectProps(k.itemName);
                 }}
-                style={[backGround === k.id ? style.Press : style.item]}
+                style={[
+                  backGround === k.id ? style.Press : style.item,
+                  // { textTransform: upperCase ? "uppercase" : "none" },
+                  upperCase && {
+                    textTransform: "uppercase",
+                    width: windowWidth / 2,
+                    textAlign: "center",
+                  },
+                ]}
               >
                 {k.itemName}
               </Text>

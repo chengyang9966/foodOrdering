@@ -9,7 +9,7 @@ import {
   AmtStr,
   AddFunction,
   MinusFunction,
-} from "../../src/Function/AmountFunction";
+} from "../../Helper/Function/AmountFunction";
 import { ItemButton } from "../../components/button/Button";
 import Spinner from "../../components/Spinner/Spinner";
 
