@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useTheme } from "react-native-paper";
-import { AmtStr } from "../../Function/AmountFunction";
+import { AmtStr } from "../../src/Function/AmountFunction";
 
 interface footerButton {
   title: string;
@@ -61,6 +61,7 @@ const FooterButton = (props: footerButton) => {
       }}
     >
       <TouchableOpacity
+        activeOpacity={0.2}
         style={[{ backgroundColor: colors.primary }, style.footerButton]}
         onPress={props.onClick}
       >

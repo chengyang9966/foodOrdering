@@ -13,7 +13,9 @@ export interface Account {
     country: string;
   };
   Item: Array<any>;
+  SelectedCheckOut: string;
   SumAmount: (props: any) => void;
+  SelectCheckOutMethod: (props: any) => void;
 }
 
 const AccountContext = createContext({} as Account);

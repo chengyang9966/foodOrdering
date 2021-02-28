@@ -6,7 +6,6 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
-
 import {
   DefaultTheme as MainTheme,
   Provider as PaperProvider,
@@ -46,16 +45,37 @@ export default function Navigation({
     </ScrollView>
   );
 }
-
+declare global {
+  namespace ReactNativePaper {
+    interface ThemeColors {
+      myOwnColor: string;
+      background: string;
+      primary: string;
+      accent: string;
+      text: string;
+      headerBackground: string;
+      cardBody: string;
+      cardBackground: string;
+    }
+    interface Theme {
+      myOwnProperty: boolean;
+      roundness: number;
+      title: number;
+      fontFamily: string;
+      bodyFont: number;
+      SmallFont: number;
+    }
+  }
+}
 const theme = {
   ...MainTheme,
+  myOwnProperty: true,
   roundness: 2,
   title: 25,
   fontFamily: "Roboto",
   bodyFont: 18,
   SmallFont: 15,
   colors: {
-    ...MainTheme.colors,
     background: "#FFBBA6",
     primary: "#A11D00",
     accent: "#E5E5E5",
@@ -65,32 +85,3 @@ const theme = {
     cardBackground: "#c4c4c4",
   },
 };
-
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
-// const Stack = createStackNavigator<RootStackParamList>();
-
-// function RootNavigator() {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="HomePage"
-//       screenOptions={{ headerShown: false }}
-//     >
-//       {/* <Stack.Screen name="HomePage" component={BottomTabNavigator} /> */}
-//       <Stack.Screen
-//         name="HomePage"
-//         component={HomePage}
-//         options={({ navigation }) => ({
-//           title: "Nak Order!",
-//         })}
-//       />
-//       <Stack.Screen name="Item" component={ItemListing} />
-//       <Stack.Screen name="Test" component={DrawerSide} />
-//       <Stack.Screen
-//         name="NotFound"
-//         component={NotFoundScreen}
-//         options={{ title: "Oops!" }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }

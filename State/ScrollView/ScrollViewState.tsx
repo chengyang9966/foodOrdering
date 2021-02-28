@@ -5,6 +5,7 @@ import ScrollViewReducer from "./ScrollViewReducer";
 export interface ScrollViewProps {
   Restaurant: Array<any>;
   EachRestaurant: Array<any>;
+  CheckOut: Array<any>;
 }
 
 const ScrollView = (props: any) => {
@@ -23,6 +24,11 @@ const ScrollView = (props: any) => {
       { itemName: "Drinks", id: "3113" },
       { itemName: "Snacks", id: "3114" },
     ],
+    CheckOut: [
+      { itemName: "Pick Up", id: "4111" },
+      { itemName: "Delivery", id: "4112" },
+      { itemName: "Eat In", id: "4113" },
+    ],
   };
 
   const [state, dispatch] = useReducer(ScrollViewReducer, initialState);
@@ -32,6 +38,7 @@ const ScrollView = (props: any) => {
       value={{
         Restaurant: state?.Restaurant,
         EachRestaurant: state?.EachRestaurant,
+        CheckOut: state?.CheckOut,
       }}
     >
       {props.children}

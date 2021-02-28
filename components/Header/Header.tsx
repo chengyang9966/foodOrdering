@@ -11,6 +11,7 @@ interface Header {
 
 const Header = (props: Header) => {
   const { navigation, title } = props;
+
   const locationContext = useContext(LocationContext);
   const { Reset } = locationContext;
   const { colors, fontFamily, bodyFont } = useTheme();
@@ -33,6 +34,7 @@ const Header = (props: Header) => {
         <Appbar.Action
           icon="keyboard-backspace"
           color={Colors.red500}
+          style={styles.searchIcon}
           size={20}
           onPress={() => {
             navigation.pop();
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 10,
+    zIndex: 100,
   },
   title: {
     paddingRight: 50,

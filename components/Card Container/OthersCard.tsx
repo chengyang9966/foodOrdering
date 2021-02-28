@@ -1,11 +1,20 @@
 import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
-import { StyleSheet, View, Image, Text, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Dimensions,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import { Card as Cards, Divider } from "react-native-elements";
 import { PhoneCall, Dialogbox } from "../../components/dialogBox/dialogbox";
 import Header from "@react-navigation/stack/lib/typescript/src/views/Header/Header";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
-import { AmtStr } from "../../Function/AmountFunction";
+import AccountContext from "../../State/Account/AccountContext";
+import { AmtStr } from "../../src/Function/AmountFunction";
 
 export interface CardContainerProps {
   halal: boolean;
@@ -125,6 +134,7 @@ const AllergyAdvice = (props: Contact) => {
   const text2: string = ` PHONE THE RESTAURANT ON`;
 
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
+
   return (
     <>
       <Cards containerStyle={{ margin: 0, marginTop: 5 }}>
@@ -232,6 +242,34 @@ interface Food {
   StoreName: any;
   id: any;
 }
+interface CheckOut {
+  styles?: StyleProp<ViewStyle>;
+  TypesOfFood: Array<CheckOutItem>;
+  navigation: any;
+  StoreName: any;
+  Name: string;
+  Amount: any;
+  Delivery: any;
+  id: any;
+}
+interface Notes {
+  styles?: StyleProp<ViewStyle>;
+  TypesOfFood: Array<CheckOutItem>;
+  navigation: any;
+  StoreName: any;
+  Name: string;
+  id: any;
+}
+interface CheckOutItem {
+  Allergy: string;
+  Description: string;
+  Max: Number;
+  Price: string | number;
+  Quantity: Number;
+  TotalAmount: string | number;
+  id: string;
+  itemName: string;
+}
 interface smallItem {
   itemName: string;
   id: string;
@@ -242,7 +280,7 @@ interface eachFood {
   id: string;
   itemName: string;
   Description: string;
-  Price: number;
+  Price: string | number;
   Quantity: number;
   Allergy: string;
 }
@@ -251,14 +289,13 @@ const ItemContainer = (props: Food) => {
   const restaurantContext = React.useContext(RestaurantContext);
   const { SelectItem } = restaurantContext;
   const { TypesOfFood, navigation, StoreName, id } = props;
-
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <>
       {TypesOfFood.map((w, index) => {
         return (
           <Cards
-            key={index}
+            key={`${w}${index}`}
             containerStyle={{
               backgroundColor: colors.background,
               padding: 0,
@@ -286,7 +323,7 @@ const ItemContainer = (props: Food) => {
             {w.item.map((k, i) => {
               return (
                 <View
-                  key={i}
+                  key={`${k}${i}`}
                   style={{ backgroundColor: colors.cardBody, paddingBottom: 0 }}
                 >
                   <View>
@@ -344,8 +381,297 @@ const ItemContainer = (props: Food) => {
     </>
   );
 };
+const NotesContainer = (props: Notes) => {
+  const accountContext = React.useContext(AccountContext);
+  const { Item, SumAmount } = accountContext;
 
-export { AllergyAdvice, AddressContainer, InfoCardContainer, ItemContainer };
+  const { TypesOfFood, navigation, StoreName, id, Name } = props;
+
+  const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
+  return (
+    <>
+      <Cards
+        containerStyle={{
+          backgroundColor: colors.background,
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        <Title
+          style={[
+            {
+              backgroundColor: colors.accent,
+              // fontFamily: fontFamily,
+              // fontSize: title,
+              color: colors.text,
+              fontWeight: "bold",
+              padding: 10,
+              marginTop: 20,
+              marginBottom: 0,
+            },
+            style.card,
+          ]}
+        >
+          <Dialogbox Title={Name} SubTitle={Item[0]} />
+        </Title>
+
+        {Item[0].Notes !== undefined && (
+          <Text
+            style={[
+              {
+                backgroundColor: colors.cardBody,
+                fontFamily: fontFamily,
+                fontSize: SmallFont,
+                color: colors.text,
+                fontWeight: "bold",
+                paddingLeft: 10,
+                paddingBottom: 10,
+              },
+            ]}
+          >
+            {Item[0].Notes}
+          </Text>
+        )}
+      </Cards>
+    </>
+  );
+};
+const CheckOutContainer = (props: CheckOut) => {
+  const restaurantContext = React.useContext(RestaurantContext);
+  const { SelectItem } = restaurantContext;
+  const {
+    TypesOfFood,
+    navigation,
+    StoreName,
+    id,
+    Name,
+    styles,
+    Amount,
+    Delivery,
+  } = props;
+
+  const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
+  return (
+    <View style={{ borderRadius: 0 }}>
+      <Cards
+        containerStyle={{
+          backgroundColor: colors.background,
+          padding: 0,
+          margin: 0,
+          borderRadius: 0,
+          borderColor: colors.background,
+        }}
+      >
+        <Cards.Title
+          style={[
+            {
+              backgroundColor: colors.accent,
+              fontFamily: fontFamily,
+              fontSize: title,
+              color: colors.text,
+              fontWeight: "bold",
+              padding: 10,
+              // marginTop: 20,
+              marginBottom: 0,
+              borderRadius: 0,
+            },
+            // style.card,
+          ]}
+        >
+          {Name}
+        </Cards.Title>
+        {TypesOfFood.map((w, index) => (
+          <React.Fragment key={`${w}${index}`}>
+            <View
+              style={[style.CheckOutItem, { backgroundColor: colors.cardBody }]}
+            >
+              <Text
+                style={[
+                  {
+                    fontFamily: fontFamily,
+                    fontSize: bodyFont,
+                    color: colors.text,
+                    fontWeight: "bold",
+                    backgroundColor: colors.accent,
+                    borderColor: colors.accent,
+                    padding: 5,
+                  },
+                ]}
+              >
+                {w.Quantity}
+              </Text>
+              <Text
+                onPress={() => {
+                  SelectItem(id, w.id);
+                  navigation.navigate("FoodItem", {
+                    id: id,
+                    storeName: StoreName,
+                    EachItem: Object.assign({}, TypesOfFood[index], {
+                      PageName: "CheckOut",
+                    }),
+                    description: true,
+                  });
+                }}
+                style={{
+                  fontFamily: fontFamily,
+                  fontSize: bodyFont,
+                  color: colors.text,
+                  fontWeight: "bold",
+                  position: "relative",
+                  right: 55,
+                }}
+              >
+                {w.itemName}
+              </Text>
+              <Text
+                style={[
+                  {
+                    fontFamily: fontFamily,
+                    fontSize: bodyFont,
+                    color: colors.text,
+                    fontWeight: "bold",
+                  },
+                ]}
+              >
+                {AmtStr(w.Price)}
+              </Text>
+            </View>
+            {index + 1 === TypesOfFood.length ? null : (
+              <Divider style={{ height: 6, backgroundColor: colors.accent }} />
+            )}
+          </React.Fragment>
+        ))}
+        <Divider style={{ height: 6, backgroundColor: colors.accent }} />
+        <View style={[style.AddDishes, { backgroundColor: colors.cardBody }]}>
+          <Text
+            onPress={() => {
+              navigation.navigate("EachItem", {
+                id: id,
+                storeName: StoreName,
+              });
+            }}
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: bodyFont,
+                color: colors.primary,
+                fontWeight: "bold",
+                textTransform: "uppercase",
+                // backgroundColor: colors.accent,
+                // borderColor: colors.accent,
+                // padding: 5,
+              },
+            ]}
+          >
+            Add Dishes
+          </Text>
+        </View>
+        <Divider style={{ height: 6, backgroundColor: colors.accent }} />
+        <View
+          style={[style.CheckOutItem, { backgroundColor: colors.cardBody }]}
+        >
+          <Text
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: bodyFont,
+                color: colors.text,
+                fontWeight: "bold",
+                // backgroundColor: colors.accent,
+                // borderColor: colors.accent,
+                // padding: 5,
+              },
+            ]}
+          >
+            SubTotal
+          </Text>
+          <Text
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: bodyFont,
+                color: colors.text,
+                fontWeight: "bold",
+                // backgroundColor: colors.accent,
+                // borderColor: colors.accent,
+                // padding: 5,
+              },
+            ]}
+          >
+            {AmtStr(Amount)}
+          </Text>
+        </View>
+        {Delivery !== 0 && (
+          <>
+            {/* <Divider style={{ height: 6, backgroundColor: colors.accent }} /> */}
+            <View
+              style={[style.AddDishes, { backgroundColor: colors.cardBody }]}
+            >
+              <Text
+                style={[
+                  {
+                    fontFamily: fontFamily,
+                    fontSize: bodyFont,
+                    color: colors.text,
+                    fontWeight: "bold",
+                    // backgroundColor: colors.accent,
+                    // borderColor: colors.accent,
+                    // padding: 5,
+                  },
+                ]}
+              >
+                Delivery Fees
+              </Text>
+              <Text
+                style={[
+                  {
+                    fontFamily: fontFamily,
+                    fontSize: bodyFont,
+                    color: colors.text,
+                    fontWeight: "bold",
+                    // backgroundColor: colors.accent,
+                    // borderColor: colors.accent,
+                    // padding: 5,
+                  },
+                ]}
+              >
+                {AmtStr(Delivery)}
+              </Text>
+            </View>
+          </>
+        )}
+        <Divider style={{ height: 6, backgroundColor: colors.accent }} />
+        <View style={[style.AddDishes, { backgroundColor: colors.cardBody }]}>
+          <Text
+            style={[
+              {
+                fontFamily: fontFamily,
+                fontSize: bodyFont,
+                color: colors.primary,
+                fontWeight: "bold",
+                textTransform: "uppercase",
+                // backgroundColor: colors.accent,
+                // borderColor: colors.accent,
+                // padding: 5,
+              },
+            ]}
+          >
+            Add Voucher
+          </Text>
+        </View>
+      </Cards>
+    </View>
+  );
+};
+
+export {
+  AllergyAdvice,
+  AddressContainer,
+  InfoCardContainer,
+  ItemContainer,
+  CheckOutContainer,
+  NotesContainer,
+};
 
 const style = StyleSheet.create({
   card: {
@@ -359,5 +685,25 @@ const style = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  CheckOutItem: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingLeft: 25,
+    paddingRight: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  AddDishes: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingLeft: 25,
+    paddingRight: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 });

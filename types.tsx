@@ -22,3 +22,4 @@ export const RESET = "RESET";
 export const READY = "READY";
 export const SELECETED_ITEM = "SELECETED_ITEM";
 export const SumTotalAmount = "SumTotalAmount";
+export const SelectCheckOut = "SelectCheckOut";

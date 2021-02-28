@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Header from "../../components/Header/Header";
 import { useTheme } from "react-native-paper";
-import ScrollView from "../../components/Slider/ScrollView";
+import ScrollViewContainer from "../../components/Slider/ScrollView";
 import LocationContext from "../../State/Location/LocationContext";
 import AccountContext from "../../State/Account/AccountContext";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
@@ -18,7 +18,7 @@ import {
   AddressContainer,
   ItemContainer,
 } from "../../components/Card Container/OthersCard";
-import { SelectDepartment } from "../../Function/Searchfunction";
+import { SelectDepartment } from "../../src/Function/Searchfunction";
 import Spinner from "../../components/Spinner/Spinner";
 import { FooterButton } from "../../components/button/Button";
 
@@ -35,11 +35,10 @@ const EachItemInfo = (props: any) => {
   const [Amount, TotalAmount] = useState(0);
   useEffect(() => {
     var AMT = 0;
-    Item.length !== 0 &&
-      Item.map((w) => {
-        console.log(w.itemName, w.TotalAmount);
-        AMT = AMT + w.TotalAmount;
-      });
+    // Item.length !== 0 && console.log(" Item", Item);
+    Item.forEach((w) => {
+      AMT = AMT + w.TotalAmount;
+    });
     TotalAmount(AMT);
   }, [Item]);
   // console.log(
@@ -54,7 +53,7 @@ const EachItemInfo = (props: any) => {
 
   let StoreItem = EachRestaurant.filter((w) => Number(w.storeId) === id);
   let StoreFoodItem: any[] = [];
-  EachRestaurant.filter((w) => Number(w.storeId) === id)[0].TypesOfFood.map(
+  EachRestaurant.filter((w) => Number(w.storeId) === id)[0].TypesOfFood.forEach(
     (k) =>
       StoreFoodItem.push({
         key: 0,
@@ -71,18 +70,19 @@ const EachItemInfo = (props: any) => {
       <ScrollViews>
         <View
           style={[
-            { backgroundColor: background, marginBottom: 20 },
-            // styles.container,
+            {
+              backgroundColor: background,
+              marginBottom: Item.length > 0 ? 55 : 20,
+            },
           ]}
         >
-          <ScrollView list={StoreFoodItem} />
+          <ScrollViewContainer list={StoreFoodItem} />
           <View style={{ backgroundColor: accent }}>
             {list.map((x, index) => {
               if (x.id === id) {
                 return (
-                  <>
+                  <React.Fragment key={`${x}${index}`}>
                     <InfoCardContainer
-                      key={index}
                       id={x?.id}
                       navigation={navigation}
                       halal={x?.halal}
@@ -90,31 +90,24 @@ const EachItemInfo = (props: any) => {
                       distant={x?.distant}
                       time={x?.time}
                     />
-                    <AllergyAdvice
-                      key={x?.id + 1}
-                      contact={StoreItem[0].Contact}
-                    />
-                    <AddressContainer
-                      key={x?.id + 2}
-                      contact={StoreItem[0].Contact}
-                    />
-                  </>
+                    <AllergyAdvice contact={StoreItem[0].Contact} />
+                    <AddressContainer contact={StoreItem[0].Contact} />
+                  </React.Fragment>
                 );
               }
             })}
           </View>
-          {EachRestaurant.map((w) => {
+          {EachRestaurant.map((w, index) => {
             if (Number(w.storeId) === Number(id)) {
               return (
-                <>
+                <React.Fragment key={`${w}${index}SADVDFNFDDFGM RGRESQ242134`}>
                   <ItemContainer
-                    key={id + 3}
                     StoreName={storeName}
                     id={id}
                     navigation={navigation}
                     TypesOfFood={SelectDepartment(Tab, w.TypesOfFood)}
                   />
-                </>
+                </React.Fragment>
               );
             }
           })}

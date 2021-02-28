@@ -5,7 +5,11 @@ import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 import AccountContext from "../../State/Account/AccountContext";
 import { BasicButton, FooterButton } from "../../components/button/Button";
 import { useTheme } from "react-native-paper";
-import { AmtStr } from "../../Function/AmountFunction";
+import {
+  AmtStr,
+  AddFunction,
+  MinusFunction,
+} from "../../src/Function/AmountFunction";
 import { ItemButton } from "../../components/button/Button";
 import Spinner from "../../components/Spinner/Spinner";
 
@@ -32,72 +36,40 @@ const EachFoodItem = (props: any) => {
   });
 
   useEffect(() => {
-    EachItem !== null || EachItem !== undefined;
-    setState({
-      Allergy: EachItem?.Allergy,
-      Description: EachItem?.Description,
-      Price: EachItem.Price,
-      Quantity: 1,
-      TotalAmount: EachItem.Price,
-      Max: EachItem.Quantity,
-      id: EachItem.id,
-      itemName: EachItem.itemName,
-    });
+    EachItem?.PageName !== undefined
+      ? setState({
+          Allergy: EachItem?.Allergy,
+          Description: EachItem?.Description,
+          Price: EachItem.Price,
+          Quantity: EachItem.Quantity,
+          TotalAmount: EachItem.TotalAmount,
+          Max: EachItem.Max - EachItem.Quantity,
+          id: EachItem.id,
+          itemName: EachItem.itemName,
+        })
+      : setState({
+          Allergy: EachItem?.Allergy,
+          Description: EachItem?.Description,
+          Price: EachItem.Price,
+          Quantity: 1,
+          TotalAmount: EachItem.Price,
+          Max: EachItem.Quantity,
+          id: EachItem.id,
+          itemName: EachItem.itemName,
+        });
   }, [EachItem]);
-
-  const AddFunction = () => {
-    const { Max, Quantity, Price } = state;
-    var Q = Quantity;
-    var M = Max;
-    Q++;
-
-    if (Q === M || Q > M) {
-      setState({
-        ...state,
-        Quantity: M,
-        TotalAmount: Price * M,
-      });
-    } else {
-      setState({
-        ...state,
-        Quantity: Q,
-        TotalAmount: Price * Q,
-      });
-    }
-  };
-  const MinusFunction = () => {
-    const { Max, Quantity, Price } = state;
-    var Q = Quantity;
-    var M = Max;
-    Q--;
-    if (Quantity === 0 || Quantity < 0 || Quantity === 1) {
-      setState({
-        ...state,
-        Quantity: 1,
-        TotalAmount: Price * 1,
-      });
-    } else if (Q === M) {
-      setState({
-        ...state,
-        Quantity: M,
-        TotalAmount: Price * M,
-      });
-    } else {
-      setState({
-        ...state,
-        Quantity: Q,
-        TotalAmount: Price * Q,
-      });
-    }
-  };
 
   const ClickItem = () => {
     SumAmount(state);
-    console.log("hi");
-    navigation.navigate("EachItem", {
-      id: id,
-      storeName: storeName,
-    });
+    EachItem?.PageName !== undefined
+      ? navigation.navigate("CheckOut", {
+          id: id,
+          storeName: storeName,
+        })
+      : navigation.navigate("EachItem", {
+          id: id,
+          storeName: storeName,
+        });
   };
 
   return EachItem === null || EachItem === undefined ? (
@@ -167,13 +139,16 @@ const EachFoodItem = (props: any) => {
           }}
         >
           <View>
-            <ItemButton sign="-" onPress={MinusFunction} />
+            <ItemButton
+              sign="-"
+              onPress={() => setState(MinusFunction(state))}
+            />
           </View>
           <Text style={{ marginLeft: 10, marginRight: 10 }}>
             {state.Quantity}
           </Text>
           <View>
-            <ItemButton sign="+" onPress={AddFunction} />
+            <ItemButton sign="+" onPress={() => setState(AddFunction(state))} />
           </View>
         </View>
         <BasicButton title="Order" uppercase Click={ClickItem} />

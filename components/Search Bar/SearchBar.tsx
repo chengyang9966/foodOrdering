@@ -3,7 +3,6 @@ import { BackHandler, StyleSheet } from "react-native";
 import { View, Text, TextInput, Image, Dimensions } from "react-native";
 import LocationContext from "../../State/Location/LocationContext";
 import { Colors, IconButton, Appbar } from "react-native-paper";
-
 export interface SearchBarProps {
   placeholder?: string;
   multiline?: boolean;
@@ -54,7 +53,7 @@ const SearchBar = (props: SearchBarProps) => {
     });
   };
 
-  const styles = StyleSheet.create({
+  const Styles = StyleSheet.create({
     container: {
       zIndex: 10000,
       position: "absolute",
@@ -82,11 +81,11 @@ const SearchBar = (props: SearchBarProps) => {
     },
   });
   return (
-    <View style={styles.container}>
+    <View style={[Styles.container]}>
       <Appbar.Action
         icon="keyboard-backspace"
         color={Colors.red500}
-        style={styles.searchIcon}
+        style={Styles.searchIcon}
         size={20}
         onPress={() => {
           navigation.pop();
@@ -98,7 +97,7 @@ const SearchBar = (props: SearchBarProps) => {
       <TextInput
         // ref={(input) => input && routeName !== "Home" && input?.focus()}
         placeholder={placeholder}
-        style={styles.navbar}
+        style={Styles.navbar}
         multiline={multiline}
         maxLength={maxLength}
         numberOfLines={numberOfLines}

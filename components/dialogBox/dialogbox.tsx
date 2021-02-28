@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Overlay, Text } from "react-native-elements";
+import { Overlay, Text, Input } from "react-native-elements";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -7,36 +7,81 @@ import {
   Linking,
   View,
 } from "react-native";
-import { useTheme } from "react-native-paper";
+import { useTheme, Button } from "react-native-paper";
 import { color } from "react-native-reanimated";
+import AccountContext from "../../State/Account/AccountContext";
 
 // import Modal from "modal-react-native-web";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const Dialogbox = (props: any) => {
+const Dialogbox = (props: Notes) => {
+  const accountContext = React.useContext(AccountContext);
+
+  const [Item, setItem] = React.useState({});
+
+  const { SumAmount } = accountContext;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   const [isVisible, setIsVisible] = React.useState(false);
-
+  const onChange = (value: any) => {
+    setItem({
+      ...Item,
+      Notes: value,
+    });
+  };
+  React.useEffect(() => {
+    props.SubTitle !== null &&
+      (props.SubTitle.Notes !== undefined
+        ? setItem(Object.assign({}, props.SubTitle))
+        : setItem(Object.assign({}, { ...props.SubTitle, Notes: "" })));
+  }, [props.SubTitle]);
   return (
     <View>
       <Text
         style={{
           fontFamily: fontFamily,
-          fontSize: SmallFont,
+          fontSize: title,
           fontWeight: "bold",
           color: colors.text,
           marginTop: 0,
         }}
         onPress={() => setIsVisible(!isVisible)}
       >
-        {props.title}
+        {props.Title}
       </Text>
       <Overlay
         isVisible={isVisible}
         onBackdropPress={() => setIsVisible(false)}
+        // style={{ width: 500, height: 40 }}
       >
-        <Text>{props.title}</Text>
+        <View
+          style={{
+            alignItems: "center",
+            width: 300,
+            height: 300,
+            marginLeft: 20,
+            marginRight: 20,
+          }}
+        >
+          <Text style={{ alignItems: "center" }}>{props.Title}</Text>
+          <Input
+            onChangeText={(e) => onChange(e)}
+            value={Item?.Notes}
+            style={{ borderWidth: 1, borderColor: "lightgrey" }}
+            multiline
+            numberOfLines={5}
+            // underlineColorAndroid="transparent"
+          />
+          <Button
+            mode="contained"
+            onPress={() => {
+              SumAmount(Item);
+              setIsVisible(!isVisible);
+            }}
+          >
+            Submit
+          </Button>
+        </View>
       </Overlay>
     </View>
   );
@@ -46,6 +91,13 @@ interface phoneCall {
   text: string;
   phoneNo: string;
   text2?: string;
+}
+interface Notes {
+  Title: string;
+  SubTitle: {};
+}
+interface NotesItem {
+  Notes: string;
 }
 
 const PhoneCall = (props: phoneCall) => {

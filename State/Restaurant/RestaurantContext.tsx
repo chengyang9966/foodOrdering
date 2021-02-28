@@ -14,6 +14,7 @@ interface eachItem {
   storeId: any;
   storeName: string;
   key: any;
+  Delivery: number;
   Contact: {
     Tel: string;
     FullName: string;

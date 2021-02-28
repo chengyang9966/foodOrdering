@@ -1,11 +1,12 @@
 import React, { useReducer } from "react";
-import { SumTotalAmount } from "../../types";
+import { SumTotalAmount, SelectCheckOut } from "../../types";
 import AccountReducer from "./Accountreducer";
 import AccountContext, { Account } from "./AccountContext";
 
 const AccountState = (props: any) => {
   const initialState = {
     Item: [] as any,
+    SelectedCheckOut: "",
     Name: "Cheng Yang",
     PhoneNo: "0108930879",
     Email: "chengyang9966@gmail.com",
@@ -27,6 +28,12 @@ const AccountState = (props: any) => {
       payload: props,
     });
   };
+  const SelectCheckOutMethod = (props: any) => {
+    dispatch({
+      type: SelectCheckOut,
+      payload: props,
+    });
+  };
 
   return (
     <AccountContext.Provider
@@ -36,7 +43,9 @@ const AccountState = (props: any) => {
         Address: state.Address,
         Email: state.Email,
         Item: state.Item,
+        SelectedCheckOut: state.SelectedCheckOut,
         SumAmount,
+        SelectCheckOutMethod,
       }}
     >
       {props.children}

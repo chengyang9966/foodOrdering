@@ -8,6 +8,7 @@ const RestaurantState = (props: any) => {
       {
         storeId: "1",
         storeName: "The Hilton",
+        Delivery: 5,
         Contact: {
           Tel: "012-6963982",
           FullName: "Cheng Yang",
@@ -67,7 +68,7 @@ const RestaurantState = (props: any) => {
               },
               {
                 id: "00006",
-                itemName: "Ban Mian",
+                itemName: "Char Key Tew",
                 Price: 25,
                 Quantity: 50,
                 Allergy: "",
@@ -134,6 +135,7 @@ const RestaurantState = (props: any) => {
       {
         storeId: "2",
         storeName: "asxas",
+        Delivery: 5,
         Contact: {
           Tel: "012-6963982",
           FullName: "Cheng Yang",

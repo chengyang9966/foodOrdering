@@ -15,6 +15,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+    // "packagerOpts": {
+    //   "config": "metro.config.js",
+    //   "sourceExts": ["ts", "tsx", "scss", "sass"],
+    //   "transformer": "node_modules/react-native-typed-sass-transformer/index.js"
+    // },
     "assetBundlePatterns": [
       "**/*"
     ],

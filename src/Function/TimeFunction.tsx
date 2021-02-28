@@ -7,16 +7,6 @@ const add_minutes = (dt: Moment, minutes: number) => {
 const totalTimeNeeded = (count: number, first?: string) => {
   var time = 0;
 
-  if (first !== null || first !== undefined) {
-    count === 1
-      ? (time = 20)
-      : count <= 10
-      ? (time = 30)
-      : count > 10
-      ? (time = 40)
-      : (time = 0);
-  }
-
   if (first === null || first === undefined) {
     count === 1
       ? (time = 40)
@@ -24,6 +14,15 @@ const totalTimeNeeded = (count: number, first?: string) => {
       ? (time = 50)
       : count > 10
       ? (time = 70)
+      : (time = 0);
+  }
+  if (first === "first") {
+    count === 1
+      ? (time = 20)
+      : count <= 10
+      ? (time = 30)
+      : count > 10
+      ? (time = 40)
       : (time = 0);
   }
 

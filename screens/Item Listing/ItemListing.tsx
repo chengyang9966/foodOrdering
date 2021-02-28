@@ -5,7 +5,7 @@ import SearchBar from "../../components/Search Bar/SearchBar";
 import ScrollViewContainer from "../../components/Slider/ScrollView";
 import CardContainer from "../../components/Card Container/CardContainer";
 import { View, Text, TextInput, Dimensions } from "react-native";
-import { SearchFunction, SelectTab } from "../../Function/Searchfunction";
+import { SearchFunction, SelectTab } from "../../src/Function/Searchfunction";
 
 import LocationContext from "../../State/Location/LocationContext";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";
@@ -29,14 +29,21 @@ const ItemListing = (props: any) => {
   return loading ? (
     <Spinner title="Nak Order" />
   ) : (
-    <View style={[{ backgroundColor: colors.background }, styles.container]}>
+    <View
+      style={[
+        {
+          backgroundColor: colors.background,
+        },
+        styles.container,
+      ]}
+    >
       <SearchBar
         navigation={navigation}
         placeholder="Food That You are desired..."
       />
 
-      <ScrollViewContainer list={Restaurant} />
-      <ScrollView style={{ marginBottom: windowHeight / 5.5 }}>
+      <ScrollViewContainer list={Restaurant} styles={{ marginBottom: 21 }} />
+      <ScrollView style={{ marginBottom: 100 }}>
         {SearchFunction(SelectedLocation, SelectTab(Tab, list), [
           "storeName",
           "cuisine",

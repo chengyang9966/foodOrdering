@@ -2,7 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "dev": "expo start",
-    "android": "expo start --android",
+    "Phone": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
@@ -31,6 +31,7 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-elements": "^3.1.0",
+    "react-native-geolocation-service": "^5.2.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-google-places-autocomplete": "^2.1.2",
     "react-native-paper": "^4.6.0",
@@ -44,7 +45,12 @@
     "@babel/core": "~7.9.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "babel-plugin-react-native-classname-to-style": "^1.2.2",
+    "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
     "jest-expo": "~40.0.0",
+    "node-sass": "^5.0.0",
+    "react-native-sass-transformer": "^1.4.0",
+    "react-native-typed-sass-transformer": "^0.11.0",
     "typescript": "~4.0.0"
   },
   "private": true
