@@ -5,12 +5,13 @@ import LocationContext from "../../State/Location/LocationContext";
 import { Colors, useTheme, Appbar } from "react-native-paper";
 
 interface Header {
-  navigation: any;
+  navigation?: any;
+  stackScreen?: any;
   title: string | any;
 }
 
 const Header = (props: Header) => {
-  const { navigation, title } = props;
+  const { navigation, title, stackScreen } = props;
 
   const locationContext = useContext(LocationContext);
   const { Reset } = locationContext;
@@ -37,7 +38,8 @@ const Header = (props: Header) => {
           style={styles.searchIcon}
           size={20}
           onPress={() => {
-            navigation.pop();
+            navigation && navigation.pop();
+            stackScreen && stackScreen.goBack();
             Reset();
           }}
         />

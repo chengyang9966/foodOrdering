@@ -13,7 +13,7 @@ export interface Account {
     country: string;
   };
   PaymentDetails: {
-    BankDetails: { BankName: string; BankNumber: string };
+    BankDetails: [{ BankName: string; BankNumber: string; Primary: boolean }];
     Rewards: {
       RewardName: string;
       RewardNumber: string;

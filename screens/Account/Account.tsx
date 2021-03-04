@@ -11,7 +11,7 @@ const Account = (props: any) => {
   const { Name, Email, PhoneNo } = accountContext;
   return (
     <View style={{ backgroundColor: colors.background, flex: 1 }}>
-      <Header title="Account" navigation={navigation} />
+      <Header title="Account" stackScreen={navigation} />
       <View style={[styles.center]}>
         <SubCardContainer Title="Name" subTitle={Name} center />
         <SubCardContainer Title="Phone" subTitle={PhoneNo} center />

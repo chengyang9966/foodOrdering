@@ -2,6 +2,8 @@ import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
 import { StyleSheet, Dimensions, ScrollView, View, Text } from "react-native";
 export interface CardContainerProps {
+  Card?: any;
+  CardCover?: any;
   storeName: string;
   halal: boolean;
   cuisine: string;
@@ -12,12 +14,23 @@ export interface CardContainerProps {
 }
 
 const CardContainer = (props: CardContainerProps) => {
-  const { id, storeName, halal, cuisine, distant, time, navigation } = props;
+  const {
+    id,
+    storeName,
+    halal,
+    cuisine,
+    distant,
+    time,
+    navigation,
+    Card,
+    CardCover,
+  } = props;
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <Card
+      {...Card}
       style={{ backgroundColor: colors.background }}
       onPress={() =>
         navigation.navigate("EachItem", {
@@ -27,6 +40,7 @@ const CardContainer = (props: CardContainerProps) => {
       }
     >
       <Card.Cover
+        {...CardCover}
         source={{
           uri:
             "https://i.insider.com/59b9777c59d82e3f008b4745?width=1100&format=jpeg&auto=webp",

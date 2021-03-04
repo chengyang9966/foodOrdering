@@ -19,10 +19,13 @@ const AccountState = (props: any) => {
       country: "Malaysia",
     },
     Payment: {
-      BankDetails: { BankName: "", BankNumber: "" },
+      BankDetails: [
+        { BankName: "CIMB", BankNumber: "2121", Primary: true },
+        { BankName: "MAYBANK", BankNumber: "7231323", Primary: false },
+      ],
       Rewards: {
-        RewardName: "",
-        RewardNumber: "",
+        RewardName: "BonusLink",
+        RewardNumber: "64321232",
       },
     },
   };

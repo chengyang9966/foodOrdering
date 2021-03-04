@@ -13,6 +13,7 @@ import Account from "../screens/Account/Account";
 import { View, StyleSheet } from "react-native";
 import { HomeStackNavigator } from "./MainStackNavigator";
 import Wallet from "../screens/Wallet/Wallet";
+import BankDetails from "../screens/Wallet/BankDetails/BankDetails";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +30,8 @@ const DrawerConfig = () => {
       {/* <Drawer.Screen name="Help" component={ItemListing} /> */}
       {/* <Drawer.Screen name="Orders" component={About} /> */}
       <Drawer.Screen name="Account" component={Account} />
+      <Drawer.Screen name="BankDetails" component={BankDetails} />
+
       <Drawer.Screen name="Wallet" component={Wallet} />
     </Drawer.Navigator>
   );

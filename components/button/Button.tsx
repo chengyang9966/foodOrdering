@@ -19,18 +19,22 @@ interface BasicButton {
   title: string;
   uppercase?: boolean;
   Click?: () => void;
+  large?: boolean;
 }
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const BasicButton = (props: BasicButton) => {
-  const { uppercase } = props;
+  const { uppercase, large } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <View style={{ zIndex: 100 }}>
       <TouchableOpacity
-        style={[{ backgroundColor: colors.primary }, style.button]}
+        style={[
+          { backgroundColor: colors.primary },
+          large ? style.large : style.button,
+        ]}
         onPress={props.Click}
       >
         <Text
@@ -135,6 +139,10 @@ const style = StyleSheet.create({
     paddingTop: 10,
     marginLeft: 90,
     marginRight: 90,
+    paddingBottom: 10,
+  },
+  large: {
+    paddingTop: 10,
     paddingBottom: 10,
   },
   footerButton: {

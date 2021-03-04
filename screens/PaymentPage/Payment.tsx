@@ -43,8 +43,8 @@ const Payment = (props: any) => {
             Name="Bank"
             navigation={navigation}
             PaymentDetails={{
-              Name: PaymentDetails.BankDetails.BankName,
-              Number: PaymentDetails.BankDetails.BankNumber,
+              Name: PaymentDetails.BankDetails[0].BankName,
+              Number: PaymentDetails.BankDetails[0].BankNumber,
             }}
           />
           <PaymentContainer

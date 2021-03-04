@@ -8,6 +8,7 @@ import EachFoodItem from "../screens/EachFoodItem/EachFoodItem";
 import Payment from "../screens/PaymentPage/Payment";
 import Checkout from "../screens/CheckOut/CheckOut";
 import { TransitionPresets } from "@react-navigation/stack";
+import BankDetails from "../screens/Wallet/BankDetails/BankDetails";
 const Stack = createStackNavigator();
 
 const HomeStackNavigator = (props: any) => {

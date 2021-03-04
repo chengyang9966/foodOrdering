@@ -15,8 +15,12 @@ import Header from "@react-navigation/stack/lib/typescript/src/views/Header/Head
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 import AccountContext from "../../State/Account/AccountContext";
 import { AmtStr } from "../../Helper/Function/AmountFunction";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export interface CardContainerProps {
+  startDate?: {
+    props: any;
+  };
   halal: boolean;
   cuisine: string;
   distant: number;
@@ -29,11 +33,11 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const InfoCardContainer = (props: CardContainerProps) => {
-  const { id, halal, cuisine, distant, time, navigation } = props;
+  const { id, halal, cuisine, distant, time, navigation, startDate } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
 
   return (
-    <Card>
+    <Card {...startDate?.props}>
       {/* <Card.Cover
         resizeMode={`cover`}
         source={{
@@ -175,7 +179,9 @@ const AllergyAdvice = (props: Contact) => {
   );
 };
 interface Contact {
+  onClick?: () => void;
   center?: boolean;
+  Primary?: boolean;
   wallet?: boolean;
   subTitle?: string | number;
   Title: string;
@@ -195,7 +201,7 @@ interface Contact {
 
 const SubCardContainer = (props: Contact) => {
   //   const { id, halal, cuisine, distant, time, navigation } = props;
-  const { contact, Title, center, subTitle, wallet } = props;
+  const { contact, Title, center, subTitle, wallet, onClick, Primary } = props;
   // //   console.log(
   // //     "🚀 ~ file: OthersCard.tsx ~ line 137 ~ AddressContainer ~ contact",
   // //     contact
@@ -218,9 +224,19 @@ const SubCardContainer = (props: Contact) => {
             marginTop: 20,
             marginBottom: 20,
           },
+          Primary && {
+            backgroundColor: colors.cardBackground,
+            borderColor: colors.cardBackground,
+          },
         ]}
       >
-        <View>
+        <TouchableOpacity
+          disabled={!onClick}
+          style={[Primary && { backgroundColor: colors.cardBackground }]}
+          onPress={() => {
+            onClick && onClick();
+          }}
+        >
           <Image
             //   style={style.image}
             resizeMode="cover"
@@ -250,7 +266,7 @@ const SubCardContainer = (props: Contact) => {
           >
             {Title}
           </Text>
-          {contact && (
+          {contact && subTitle && (
             <Text
               style={{
                 textTransform: "uppercase",
@@ -269,7 +285,7 @@ const SubCardContainer = (props: Contact) => {
                 contact?.Address?.country}
             </Text>
           )}
-          {center && (
+          {center && subTitle && (
             <Text
               style={[
                 {
@@ -284,7 +300,7 @@ const SubCardContainer = (props: Contact) => {
               {subTitle}
             </Text>
           )}
-          {wallet && (
+          {wallet && subTitle && (
             <Text
               style={[
                 {
@@ -292,13 +308,14 @@ const SubCardContainer = (props: Contact) => {
                   fontWeight: "600",
                   fontSize: SmallFont,
                   textAlign: "center",
+                  paddingTop: 10,
                 },
               ]}
             >
               {subTitle}
             </Text>
           )}
-        </View>
+        </TouchableOpacity>
       </Cards>
     </>
   );
