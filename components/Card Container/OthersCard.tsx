@@ -129,7 +129,7 @@ const InfoCardContainer = (props: CardContainerProps) => {
 };
 
 const AllergyAdvice = (props: Contact) => {
-  const { contact } = props;
+  const { contact, Title } = props;
   const text: string = `iF YOU HAVE A FOOD ALLERGY OR INTOLERANCE (OR SOMEONE YOU ARE ORDERING FOR HAS),`;
   const text2: string = ` PHONE THE RESTAURANT ON`;
 
@@ -151,7 +151,7 @@ const AllergyAdvice = (props: Contact) => {
               textTransform: "uppercase",
             }}
           >
-            Allergy Advice
+            {Title}
           </Text>
           <Text
             style={{
@@ -160,12 +160,14 @@ const AllergyAdvice = (props: Contact) => {
               fontSize: SmallFont,
             }}
           >
-            <PhoneCall
-              title="Tap Here"
-              text={text}
-              phoneNo={contact.Tel}
-              text2={text2}
-            />
+            {contact && (
+              <PhoneCall
+                title="Tap Here"
+                text={text}
+                phoneNo={contact.Tel}
+                text2={text2}
+              />
+            )}
           </Text>
         </View>
       </Cards>
@@ -173,7 +175,11 @@ const AllergyAdvice = (props: Contact) => {
   );
 };
 interface Contact {
-  contact: {
+  center?: boolean;
+  wallet?: boolean;
+  subTitle?: string | number;
+  Title: string;
+  contact?: {
     Tel: string;
     FullName: string;
     Address: {
@@ -187,9 +193,9 @@ interface Contact {
   };
 }
 
-const AddressContainer = (props: Contact) => {
+const SubCardContainer = (props: Contact) => {
   //   const { id, halal, cuisine, distant, time, navigation } = props;
-  const { contact } = props;
+  const { contact, Title, center, subTitle, wallet } = props;
   // //   console.log(
   // //     "🚀 ~ file: OthersCard.tsx ~ line 137 ~ AddressContainer ~ contact",
   // //     contact
@@ -197,7 +203,23 @@ const AddressContainer = (props: Contact) => {
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <>
-      <Cards containerStyle={{ margin: 0, marginTop: 5 }}>
+      <Cards
+        containerStyle={[
+          {
+            margin: 0,
+            marginTop: 5,
+            marginBottom: 0,
+          },
+          center && {
+            marginTop: 15,
+            marginBottom: 15,
+          },
+          wallet && {
+            marginTop: 20,
+            marginBottom: 20,
+          },
+        ]}
+      >
         <View>
           <Image
             //   style={style.image}
@@ -205,31 +227,77 @@ const AddressContainer = (props: Contact) => {
             source={{ uri: "asdadawdae" }}
           />
           <Text
-            style={{
-              fontSize: bodyFont,
-              fontWeight: "500",
-              textTransform: "uppercase",
-            }}
+            style={[
+              {
+                fontSize: bodyFont,
+                fontWeight: "500",
+                textTransform: "uppercase",
+                textAlign: "auto",
+              },
+              center && {
+                fontSize: 20,
+                fontWeight: "bold",
+                textAlign: "center",
+                padding: 10,
+              },
+              wallet && {
+                marginTop: 10,
+                fontSize: 20,
+                fontWeight: "bold",
+                textAlign: "center",
+              },
+            ]}
           >
-            Address
+            {Title}
           </Text>
-          <Text
-            style={{
-              textTransform: "uppercase",
-              fontWeight: "500",
-              fontSize: SmallFont,
-            }}
-          >
-            {contact?.Address?.address1 +
-              "," +
-              contact?.Address?.address2 +
-              "," +
-              contact?.Address?.postcode +
-              "," +
-              contact?.Address?.county +
-              "," +
-              contact?.Address?.country}
-          </Text>
+          {contact && (
+            <Text
+              style={{
+                textTransform: "uppercase",
+                fontWeight: "500",
+                fontSize: SmallFont,
+              }}
+            >
+              {contact?.Address?.address1 +
+                "," +
+                contact?.Address?.address2 +
+                "," +
+                contact?.Address?.postcode +
+                "," +
+                contact?.Address?.county +
+                "," +
+                contact?.Address?.country}
+            </Text>
+          )}
+          {center && (
+            <Text
+              style={[
+                {
+                  textTransform: "uppercase",
+                  fontWeight: center ? "600" : "500",
+                  fontSize: SmallFont,
+                  textAlign: center ? "center" : "auto",
+                  padding: center ? 10 : 0,
+                },
+              ]}
+            >
+              {subTitle}
+            </Text>
+          )}
+          {wallet && (
+            <Text
+              style={[
+                {
+                  textTransform: "uppercase",
+                  fontWeight: "600",
+                  fontSize: SmallFont,
+                  textAlign: "center",
+                },
+              ]}
+            >
+              {subTitle}
+            </Text>
+          )}
         </View>
       </Cards>
     </>
@@ -533,6 +601,7 @@ const PaymentContainer = (props: Payment) => {
               style.CheckOutItem,
               {
                 backgroundColor: colors.cardBody,
+                justifyContent: "center",
               },
             ]}
           >
@@ -786,7 +855,7 @@ const CheckOutContainer = (props: CheckOut) => {
 
 export {
   AllergyAdvice,
-  AddressContainer,
+  SubCardContainer,
   InfoCardContainer,
   ItemContainer,
   CheckOutContainer,

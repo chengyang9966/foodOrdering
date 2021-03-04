@@ -29,6 +29,7 @@ const ScrollViewContainer = (props: ScrollViewProps) => {
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const [backGround, SetBackGround] = useState("");
+  const [TextItem, SetText] = useState("");
   const locationContext = useContext(LocationContext);
   const accountContext = useContext(AccountContext);
   const restaurantContext = useContext(RestaurantContext);
@@ -44,20 +45,26 @@ const ScrollViewContainer = (props: ScrollViewProps) => {
   };
   const Run = (id: any, text: any) => {
     changeColour(id);
-    SelectProps(text);
+    SelectProps(text, id);
   };
   useEffect(() => {
     SelectedCheckOut === "" &&
       title === "CheckOut" &&
       Run(list[0].id, list[0].itemName);
   }, [SelectedCheckOut, list[0], title]);
-  const SelectProps = (text: string) => {
+  const SelectProps = (text: string, id: any) => {
+    SetText(id);
     title === "CheckOut"
       ? SelectCheckOutMethod(text)
       : list[0].id === "3111"
-      ? SelectItem(text)
-      : title === "IndividualRestaurant" &&
-        (console.log(text), FilterItem(text));
+      ? TextItem === id
+        ? SelectItem(text)
+        : SelectItem("")
+      : title === "IndividualRestaurant"
+      ? TextItem === id
+        ? FilterItem(text)
+        : FilterItem("")
+      : "";
   };
 
   return (
@@ -85,7 +92,7 @@ const ScrollViewContainer = (props: ScrollViewProps) => {
                 key={i}
                 onPress={() => {
                   changeColour(k.id);
-                  SelectProps(k.itemName);
+                  SelectProps(k.itemName, k.id);
                 }}
                 style={[
                   backGround === k.id ? style.Press : style.item,

@@ -19,36 +19,12 @@ import LocationStore from "../State/Location/LocationState";
 import ScrollView from "../State/ScrollView/ScrollViewState";
 import RestaurantState from "../State/Restaurant/RestaurantState";
 import AccountState from "../State/Account/AccountState";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
-  return (
-    <ScrollView>
-      <AccountState>
-        <LocationStore>
-          <RestaurantState>
-            <NavigationContainer
-              // linking={LinkingConfiguration}
-              theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-            >
-              <PaperProvider theme={theme}>
-                <HomeStackNavigator />
-              </PaperProvider>
-            </NavigationContainer>
-          </RestaurantState>
-        </LocationStore>
-      </AccountState>
-    </ScrollView>
-  );
-}
 declare global {
   namespace ReactNativePaper {
     interface ThemeColors {
-      myOwnColor: string;
       background: string;
       primary: string;
       accent: string;
@@ -76,6 +52,7 @@ const theme = {
   bodyFont: 18,
   SmallFont: 15,
   colors: {
+    ...Colors,
     background: "#FFBBA6",
     primary: "#A11D00",
     accent: "#E5E5E5",
@@ -85,3 +62,29 @@ const theme = {
     cardBackground: "#c4c4c4",
   },
 };
+
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
+  return (
+    <ScrollView>
+      <AccountState>
+        <LocationStore>
+          <RestaurantState>
+            <NavigationContainer
+              // linking={LinkingConfiguration}
+              theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            >
+              <PaperProvider theme={theme}>
+                {/* <HomeStackNavigator /> */}
+                <DrawerConfig />
+              </PaperProvider>
+            </NavigationContainer>
+          </RestaurantState>
+        </LocationStore>
+      </AccountState>
+    </ScrollView>
+  );
+}

@@ -15,8 +15,8 @@ import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 import {
   InfoCardContainer,
   AllergyAdvice,
-  AddressContainer,
   ItemContainer,
+  SubCardContainer,
 } from "../../components/Card Container/OthersCard";
 import { SelectDepartment } from "../../Helper/Function/Searchfunction";
 import Spinner from "../../components/Spinner/Spinner";
@@ -104,15 +104,21 @@ const EachItemInfo = (props: any) => {
                         distant={x?.distant}
                         time={x?.time}
                       />
-                      <AllergyAdvice contact={StoreItem[0].Contact} />
-                      <AddressContainer contact={StoreItem[0].Contact} />
+                      <AllergyAdvice
+                        Title="Allergy Advice"
+                        contact={StoreItem[0].Contact}
+                      />
+                      <SubCardContainer
+                        Title="Address"
+                        contact={StoreItem[0].Contact}
+                      />
                     </React.Fragment>
                   );
                 }
               })}
             </View>
           )}
-          {Tab !== "" &&
+          {(Tab === "" || Tab !== "Info") &&
             EachRestaurant.map((w, index) => {
               if (Number(w.storeId) === Number(id)) {
                 return (

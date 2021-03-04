@@ -12,6 +12,13 @@ export interface Account {
     postcode: number;
     country: string;
   };
+  PaymentDetails: {
+    BankDetails: { BankName: string; BankNumber: string };
+    Rewards: {
+      RewardName: string;
+      RewardNumber: string;
+    };
+  };
   Item: Array<any>;
   SelectedCheckOut: string;
   SumAmount: (props: any) => void;

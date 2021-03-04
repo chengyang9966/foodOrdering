@@ -1,9 +1,11 @@
 import { SumTotalAmount, SelectCheckOut } from "../../types";
 
 export default (state: any, action: any) => {
-  const ItemExists = state.Item.find((e: any) => e.id === action.payload.id);
   switch (action.type) {
     case SumTotalAmount:
+      const ItemExists = state.Item.find(
+        (e: any) => e.id === action.payload.id
+      );
       return {
         ...state,
         Item: ItemExists

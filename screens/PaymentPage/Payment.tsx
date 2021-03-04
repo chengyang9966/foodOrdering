@@ -14,6 +14,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { PaymentContainer } from "../../components/Card Container/OthersCard";
 import { FooterButton } from "../../components/button/Button";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";
+import AccountContext from "../../State/Account/AccountContext";
 import ScrollViewContainer from "../../components/Slider/ScrollView";
 
 const Payment = (props: any) => {
@@ -21,7 +22,9 @@ const Payment = (props: any) => {
   const { storeName, id, Amount } = route.params;
   const { colors } = useTheme();
   const scrollViewContext = useContext(ScrollViewContext);
+  const accountContext = useContext(AccountContext);
   const { Payment } = scrollViewContext;
+  const { PaymentDetails } = accountContext;
   return (
     <>
       <Header navigation={navigation} title="Payment" />
@@ -40,8 +43,8 @@ const Payment = (props: any) => {
             Name="Bank"
             navigation={navigation}
             PaymentDetails={{
-              Name: "Heong Leong Bank",
-              Number: 21231321123123,
+              Name: PaymentDetails.BankDetails.BankName,
+              Number: PaymentDetails.BankDetails.BankNumber,
             }}
           />
           <PaymentContainer
@@ -50,8 +53,8 @@ const Payment = (props: any) => {
             Name="Reward"
             navigation={navigation}
             PaymentDetails={{
-              Name: "Bonus Link",
-              Number: 1231312312312,
+              Name: PaymentDetails.Rewards.RewardName,
+              Number: PaymentDetails.Rewards.RewardNumber,
             }}
           />
           <PaymentContainer

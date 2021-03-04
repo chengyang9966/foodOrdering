@@ -18,6 +18,13 @@ const AccountState = (props: any) => {
       postcode: 531000,
       country: "Malaysia",
     },
+    Payment: {
+      BankDetails: { BankName: "", BankNumber: "" },
+      Rewards: {
+        RewardName: "",
+        RewardNumber: "",
+      },
+    },
   };
 
   const [state, dispatch] = useReducer(AccountReducer, initialState);
@@ -44,6 +51,7 @@ const AccountState = (props: any) => {
         Email: state.Email,
         Item: state.Item,
         SelectedCheckOut: state.SelectedCheckOut,
+        PaymentDetails: state.Payment,
         SumAmount,
         SelectCheckOutMethod,
       }}
