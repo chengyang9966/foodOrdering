@@ -5,6 +5,7 @@ export interface RestaurantProps {
   SelectedItem: any;
   SelectItem: (StoreId: string, FoodId: string) => void;
   FilterItem: (props: string) => void;
+  IncreaseNumber: (props: string) => void;
   Ready: () => void;
   loading: string;
   Tab: string;
@@ -13,6 +14,7 @@ export interface RestaurantProps {
 interface eachItem {
   storeId: any;
   storeName: string;
+  RunningNumber: number;
   key: any;
   Delivery: number;
   Contact: {

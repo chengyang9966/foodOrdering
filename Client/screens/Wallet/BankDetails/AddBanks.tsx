@@ -57,10 +57,7 @@ const AddBank = (props: any) => {
     }
     if (Id !== undefined && Title === "Reward" && Type === "Edit") {
       let RewardDetails = PaymentDetails.Rewards.find((w) => w.Id === Id);
-      console.log(
-        "🚀 ~ file: AddBanks.tsx ~ line 49 ~ useEffect ~ BankDetails",
-        RewardDetails
-      );
+
       SetReward({
         RewardName: RewardDetails?.RewardName || "",
         RewardNumber: RewardDetails?.RewardNumber || "",

@@ -11,23 +11,28 @@ import {
 import Header from "../../components/Header/Header";
 import { useTheme } from "react-native-paper";
 import Spinner from "../../components/Spinner/Spinner";
+import { PaymentStatus } from "../../types";
 import { PaymentContainer } from "../../components/Card Container/OthersCard";
 import { FooterButton } from "../../components/button/Button";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";
 import AccountContext from "../../State/Account/AccountContext";
 import ScrollViewContainer from "../../components/Slider/ScrollView";
-
+import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 const Payment = (props: any) => {
   const { navigation, route } = props;
   const { storeName, id, Amount } = route.params;
   const { colors } = useTheme();
   const scrollViewContext = useContext(ScrollViewContext);
   const accountContext = useContext(AccountContext);
+  const restaurantContext = useContext(RestaurantContext);
+  const { IncreaseNumber, EachRestaurant } = restaurantContext;
   const { Payment } = scrollViewContext;
   const { PaymentDetails, SelectCutleries, SetPaymentStatus } = accountContext;
   const PrimaryPayment = PaymentDetails.BankDetails.find(
     (w) => w.Primary === true
   );
+  let temp = EachRestaurant.find((w) => Number(w.storeId) === id);
+
   const RewardItem = PaymentDetails.Rewards.find((w) => w.Primary === true);
   return (
     <>
@@ -90,12 +95,26 @@ const Payment = (props: any) => {
         amount={Amount}
         uppercase
         onClick={() => {
-          SetPaymentStatus(`Success`);
-          navigation.navigate("AfterPayment", {
-            Title: "Payment",
-            Progress: true,
-            id,
+          SetPaymentStatus({
+            PaymentStatus: PaymentStatus.FirstPay,
+            RunningNumber: temp?.RunningNumber,
+            storeName,
+            TrxDate: new Date(),
+            Reward: {
+              RewardName: RewardItem?.RewardName,
+              RewardNumber: RewardItem?.RewardNumber,
+            },
+            Bank: {
+              BankName: PrimaryPayment?.BankName,
+              BankNumber: PrimaryPayment?.BankNumber,
+            },
           });
+          IncreaseNumber(id),
+            navigation.navigate("AfterPayment", {
+              Title: "Payment",
+              Progress: true,
+              id,
+            });
         }}
       />
     </>

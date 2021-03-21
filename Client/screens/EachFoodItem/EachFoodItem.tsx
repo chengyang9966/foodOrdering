@@ -12,11 +12,10 @@ import {
 } from "../../Helper/Function/AmountFunction";
 import { ItemButton } from "../../components/button/Button";
 import Spinner from "../../components/Spinner/Spinner";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import PageSize from "../../Helper/PageSize";
 
 const EachFoodItem = (props: any) => {
+  const { windowHeight, windowWidth } = PageSize();
   const restaurantContext = useContext(RestaurantContext);
   const accountContext = useContext(AccountContext);
   const { SumAmount } = accountContext;

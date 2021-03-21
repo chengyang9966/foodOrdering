@@ -10,12 +10,12 @@ import {
 import { useTheme, Button } from "react-native-paper";
 import { color } from "react-native-reanimated";
 import AccountContext from "../../State/Account/AccountContext";
+import PageSize from "../../Helper/PageSize";
 
 // import Modal from "modal-react-native-web";
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 
 const Dialogbox = (props: Notes) => {
+  const { windowHeight, windowWidth } = PageSize();
   const accountContext = React.useContext(AccountContext);
 
   const [Item, setItem] = React.useState({});
@@ -103,7 +103,7 @@ interface NotesItem {
 const PhoneCall = (props: phoneCall) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
-
+  const { windowHeight, windowWidth } = PageSize();
   return (
     <View style={{ backfaceVisibility: "visible" }}>
       <Text

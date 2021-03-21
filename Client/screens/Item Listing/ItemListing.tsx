@@ -14,6 +14,7 @@ import LocationContext from "../../State/Location/LocationContext";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";
 import { useTheme } from "react-native-paper";
 import Spinner from "../../components/Spinner/Spinner";
+import PageSize from "../../Helper/PageSize";
 
 const ItemListing = (props: any) => {
   const { navigation } = props;
@@ -22,8 +23,7 @@ const ItemListing = (props: any) => {
   const { Restaurant } = scrollViewContext;
   const { SelectedLocation, list, Tab, loading, Ready } = locationContext;
   const { colors } = useTheme();
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
 
   useEffect(() => {
     list.length > 0 && Ready();

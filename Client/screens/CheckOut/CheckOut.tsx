@@ -24,10 +24,10 @@ import AccountContext from "../../State/Account/AccountContext";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
 import ScrollViewContext from "../../State/ScrollView/ScrollViewContext";
 import ScrollViewContainer from "../../components/Slider/ScrollView";
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import PageSize from "../../Helper/PageSize";
 
 const Checkout = (props: any) => {
+  const { windowHeight, windowWidth } = PageSize();
   const { navigation, route } = props;
   const { storeName, id } = route.params;
   const { colors } = useTheme();

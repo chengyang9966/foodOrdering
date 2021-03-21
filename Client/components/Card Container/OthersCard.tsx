@@ -29,13 +29,10 @@ export interface CardContainerProps {
   navigation: any;
 }
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-
 const InfoCardContainer = (props: CardContainerProps) => {
   const { id, halal, cuisine, distant, time, navigation, startDate } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
-
+  const { windowHeight, windowWidth } = PageSize();
   return (
     <Card {...startDate?.props}>
       {/* <Card.Cover
@@ -183,6 +180,11 @@ interface Contact {
   center?: boolean;
   Primary?: boolean;
   wallet?: boolean;
+  order?: {
+    subLeft: string;
+    subRight: string;
+  };
+
   subTitle?: string | number;
   Title: string;
   contact?: {
@@ -200,7 +202,16 @@ interface Contact {
 }
 
 const SubCardContainer = (props: Contact) => {
-  const { contact, Title, center, subTitle, wallet, onClick, Primary } = props;
+  const {
+    contact,
+    Title,
+    center,
+    subTitle,
+    wallet,
+    order,
+    onClick,
+    Primary,
+  } = props;
 
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
@@ -217,6 +228,10 @@ const SubCardContainer = (props: Contact) => {
             marginBottom: 15,
           },
           wallet && {
+            marginTop: 20,
+            marginBottom: 20,
+          },
+          order && {
             marginTop: 20,
             marginBottom: 20,
           },
@@ -254,6 +269,12 @@ const SubCardContainer = (props: Contact) => {
               },
               wallet && {
                 marginTop: 10,
+                fontSize: 20,
+                fontWeight: "bold",
+                textAlign: "center",
+              },
+              order && {
+                marginTop: -10,
                 fontSize: 20,
                 fontWeight: "bold",
                 textAlign: "center",
@@ -310,6 +331,43 @@ const SubCardContainer = (props: Contact) => {
             >
               {subTitle}
             </Text>
+          )}
+          {order && (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignContent: "space-between",
+              }}
+            >
+              <Text
+                style={[
+                  {
+                    display: "flex",
+                    textTransform: "uppercase",
+                    fontWeight: "600",
+                    fontSize: SmallFont,
+
+                    paddingTop: 10,
+                  },
+                ]}
+              >
+                {order.subLeft}
+              </Text>
+              <Text
+                style={[
+                  {
+                    paddingTop: 10,
+                    textTransform: "uppercase",
+                    fontWeight: "600",
+                    fontSize: SmallFont,
+                  },
+                ]}
+              >
+                {order.subRight}
+              </Text>
+            </View>
           )}
         </TouchableOpacity>
       </Cards>

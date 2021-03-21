@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useTheme } from "react-native-paper";
 import { AmtStr } from "../../Helper/Function/AmountFunction";
+import PageSize from "../../Helper/PageSize";
 
 interface footerButton {
   title: string;
@@ -22,9 +23,6 @@ interface BasicButton {
   Click?: () => void;
   large?: boolean;
 }
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 
 const BasicButton = (props: BasicButton) => {
   const { uppercase, large } = props;
@@ -54,6 +52,7 @@ const BasicButton = (props: BasicButton) => {
 };
 
 const FooterButton = (props: footerButton) => {
+  const { windowHeight, windowWidth } = PageSize();
   const { uppercase, amount, disabled } = props;
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (

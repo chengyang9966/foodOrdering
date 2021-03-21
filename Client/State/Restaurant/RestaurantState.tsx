@@ -1,13 +1,14 @@
 import React, { useReducer } from "react";
 import RestaurantContext from "./RestaurantContext";
 import RestaurantReducer from "./RestaurantReducer";
-import { SELECETED_ITEM, SELECT_TAB, READY } from "../../types";
+import { SELECETED_ITEM, SELECT_TAB, READY, INCREASENUMBER } from "../../types";
 const RestaurantState = (props: any) => {
   const initialState = {
     EachRestaurant: [
       {
         storeId: "1",
         storeName: "The Hilton",
+        RunningNumber: 1000,
         Delivery: 5,
         Contact: {
           Tel: "012-6963982",
@@ -135,6 +136,7 @@ const RestaurantState = (props: any) => {
       {
         storeId: "2",
         storeName: "asxas",
+        RunningNumber: 1000,
         Delivery: 5,
         Contact: {
           Tel: "012-6963982",
@@ -240,6 +242,12 @@ const RestaurantState = (props: any) => {
       payload: props,
     });
   };
+  const IncreaseNumber = (props: string) => {
+    dispatch({
+      type: INCREASENUMBER,
+      payload: props,
+    });
+  };
 
   const SelectItem = (StoreId: string, FoodId: string) => {
     var SelectedItem = null;
@@ -271,6 +279,7 @@ const RestaurantState = (props: any) => {
         EachRestaurant: state.EachRestaurant,
         SelectItem,
         FilterItem,
+        IncreaseNumber,
         Ready,
       }}
     >

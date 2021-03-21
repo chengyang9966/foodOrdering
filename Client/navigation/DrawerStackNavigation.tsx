@@ -16,6 +16,8 @@ import Wallet from "../screens/Wallet/Wallet";
 import BankDetails from "../screens/Wallet/BankDetails/BankDetails";
 import AddBank from "../screens/Wallet/BankDetails/AddBanks";
 import EditAccount from "../screens/Account/EditAccount";
+import OrderPage from "../screens/Order/OdrerPage";
+import EachOrder from "../screens/Order/EachOrder";
 
 const Drawer = createDrawerNavigator();
 
@@ -37,6 +39,8 @@ const DrawerConfig = () => {
       <Drawer.Screen name="AddBank" component={AddBank} />
 
       <Drawer.Screen name="Wallet" component={Wallet} />
+      <Drawer.Screen name="OrderPage" component={OrderPage} />
+      <Drawer.Screen name="EachOrder" component={EachOrder} />
     </Drawer.Navigator>
   );
 };
@@ -75,7 +79,7 @@ export const CustomDrawerComp = (props: any) => {
             Style.bodyCard,
           ]}
           style={{ backgroundColor: colors.cardBody }}
-          onPress={() => navigation.navigate("EachItem")}
+          onPress={() => navigation.navigate("OrderPage")}
         />
         <DrawerItem
           label="Account"

@@ -12,10 +12,10 @@ import {
 import { CardNumberConvert } from "../../Helper/Function/AmountFunction";
 import { useTheme } from "react-native-paper";
 import { BasicButton, FooterButton } from "../button/Button";
+import PageSize from "../../Helper/PageSize";
 const TextField = (props: TextFieldProps) => {
   const { colors, bodyFont, title, fontFamily } = useTheme();
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
   var Length = props.section?.Texts?.length;
   return (
     <>

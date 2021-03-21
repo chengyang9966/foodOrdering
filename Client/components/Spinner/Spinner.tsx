@@ -7,13 +7,13 @@ import {
   Dimensions,
 } from "react-native";
 import { useTheme } from "react-native-paper";
+import PageSize from "../../Helper/PageSize";
 interface Spinner {
   title?: string;
 }
 const Spinner = (props: Spinner) => {
   const { colors, title, fontFamily } = useTheme();
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
   return (
     <View style={[{ backgroundColor: colors.background }, styles.container]}>
       <ActivityIndicator size="large" color={colors.accent} />

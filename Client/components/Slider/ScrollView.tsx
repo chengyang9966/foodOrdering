@@ -8,6 +8,7 @@ import {
   StyleProp,
   ViewStyle,
 } from "react-native";
+import PageSize from "../../Helper/PageSize";
 import AccountContext from "../../State/Account/AccountContext";
 import LocationContext from "../../State/Location/LocationContext";
 import RestaurantContext from "../../State/Restaurant/RestaurantContext";
@@ -22,9 +23,7 @@ export interface ScrollViewProps {
 
 const ScrollViewContainer = (props: ScrollViewProps) => {
   const { list, styles, title, upperCase, Empty } = props;
-
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
   const [backGround, SetBackGround] = useState("");
   const [TextItem, SetText] = useState("");
   const locationContext = useContext(LocationContext);

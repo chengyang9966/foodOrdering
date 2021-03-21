@@ -1,4 +1,4 @@
-import { SELECETED_ITEM, SELECT_TAB, READY } from "../../types";
+import { SELECETED_ITEM, SELECT_TAB, READY, INCREASENUMBER } from "../../types";
 
 export default (state: any, action: any) => {
   switch (action.type) {
@@ -11,6 +11,16 @@ export default (state: any, action: any) => {
       return {
         ...state,
         Tab: action.payload,
+        loading: false,
+      };
+    case INCREASENUMBER:
+      let temp = state.EachRestaurant.find(
+        (w: any) => Number(w.storeId) === action.payload
+      );
+      temp.RunningNumber += 1;
+      return {
+        ...state,
+        EachRestaurant: [...state.EachRestaurant, temp],
         loading: false,
       };
     case READY:

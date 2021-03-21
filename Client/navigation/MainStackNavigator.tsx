@@ -10,7 +10,7 @@ import Checkout from "../screens/CheckOut/CheckOut";
 import { TransitionPresets } from "@react-navigation/stack";
 import BankDetails from "../screens/Wallet/BankDetails/BankDetails";
 import AfterPayment from "../screens/PaymentPage/AfterPayment";
-import OrderPage from "../screens/Waiting Order/OrderPage";
+import NavigationOrderPage from "../screens/Waiting Order/OrderPage";
 const Stack = createStackNavigator();
 
 const HomeStackNavigator = (props: any) => {
@@ -48,7 +48,7 @@ const HomeStackNavigator = (props: any) => {
         }}
       />
       <Stack.Screen name="AfterPayment" component={AfterPayment} />
-      <Stack.Screen name="OrderPage" component={OrderPage} />
+      <Stack.Screen name="OrderPage" component={NavigationOrderPage} />
 
       {/* <Stack.Screen name="NotFound" component={NotFoundScreen} /> */}
     </Stack.Navigator>

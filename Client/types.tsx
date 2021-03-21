@@ -30,3 +30,11 @@ export const EDITREWARDS = "EDITREWARDS";
 export const EDITCONTACT = "EDITCONTACT";
 export const SELECTCLUT = "SELECTCLUT";
 export const PAYMENTSTATUS = "PAYMENTSTATUS";
+export const INCREASENUMBER = "INCREASENUMBER";
+
+export enum PaymentStatus {
+  Pending = "Pending",
+  Success = "Success",
+  Fail = "Fail",
+  FirstPay = "FirstPay",
+}

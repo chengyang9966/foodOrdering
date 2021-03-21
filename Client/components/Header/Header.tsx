@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import LocationContext from "../../State/Location/LocationContext";
 import { Colors, useTheme, Appbar } from "react-native-paper";
+import PageSize from "../../Helper/PageSize";
 
 interface Header {
   navigation?: any;
@@ -20,8 +21,7 @@ const Header = (props: Header) => {
   const locationContext = useContext(LocationContext);
   const { Reset } = locationContext;
   const { colors, fontFamily, bodyFont } = useTheme();
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
 
   return (
     <View

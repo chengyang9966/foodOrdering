@@ -4,12 +4,12 @@ import { StyleSheet, Dimensions } from "react-native";
 import GooglePlacesInput from "../../components/Search Bar/GoogleSearch";
 import { View, Text, TextInput } from "react-native";
 import { Button, useTheme } from "react-native-paper";
+import PageSize from "../../Helper/PageSize";
 
 const HomePage = (props: any) => {
   const { navigation, route } = props;
   const { colors } = useTheme();
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
   // console.log("🚀 ~ file: HomePage.tsx ~ line 13 ~ HomePage ~ colors", colors);
   return (
     <View

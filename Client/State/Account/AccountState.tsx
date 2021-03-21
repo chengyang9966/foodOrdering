@@ -16,7 +16,34 @@ import AccountContext, { Account } from "./AccountContext";
 const AccountState = (props: any) => {
   const initialState = {
     Item: [] as any,
-    PastOrder: [],
+    PastOrder: [
+      {
+        "0": {
+          Allergy: "",
+          Description: "This is the description",
+          Max: 50,
+          Price: 5,
+          Quantity: 1,
+          TotalAmount: 5,
+          id: "00001",
+          itemName: "Ban Mian",
+        },
+        Bank: {
+          BankName: "CIMB",
+          BankNumber: "2121",
+        },
+        OrderNumber: "RCPT000013",
+        PaymentStatus: "Success",
+        Rewards: {
+          RewardName: "BonusLink",
+          RewardNumber: "64321232",
+        },
+        SelectCutleries: true,
+        SelectedCheckOut: "Pick Up",
+        TrxDate: "2021-03-21T14:04:07.350Z",
+        storeName: "The Hilton",
+      },
+    ],
     PaymentStatus: "",
     SelectedCheckOut: "",
     SelectCutleries: true,

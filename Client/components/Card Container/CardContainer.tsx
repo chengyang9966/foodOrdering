@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card, Title, Paragraph, useTheme } from "react-native-paper";
 import { StyleSheet, Dimensions, ScrollView, View, Text } from "react-native";
+import PageSize from "../../Helper/PageSize";
 export interface CardContainerProps {
   storeName: string;
   halal: boolean;
@@ -13,8 +14,7 @@ export interface CardContainerProps {
 
 const CardContainer = (props: CardContainerProps) => {
   const { id, storeName, halal, cuisine, distant, time, navigation } = props;
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
   const { colors, title, bodyFont, SmallFont, fontFamily } = useTheme();
   return (
     <Card

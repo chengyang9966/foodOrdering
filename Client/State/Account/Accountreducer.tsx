@@ -1,3 +1,5 @@
+import { PrefixForOrder } from "../../Helper/Function/Prefix";
+import React from "react";
 import {
   SumTotalAmount,
   SelectCheckOut,
@@ -8,7 +10,9 @@ import {
   EDITCONTACT,
   SELECTCLUT,
   PAYMENTSTATUS,
+  PaymentStatus,
 } from "../../types";
+const { value } = PrefixForOrder();
 
 export default (state: any, action: any) => {
   switch (action.type) {
@@ -41,10 +45,45 @@ export default (state: any, action: any) => {
         SelectCutleries: !state?.SelectCutleries,
       };
     case PAYMENTSTATUS:
-      return {
-        ...state,
-        PaymentStatus: action.payload,
-      };
+      switch (action.payload.PaymentStatus) {
+        case PaymentStatus.FirstPay:
+          let temp: any[] = [];
+          temp = {
+            ...state.Item,
+            OrderNumber: value(1, "RCPT", 6),
+            PaymentStatus: PaymentStatus.Pending,
+            Rewards: action.payload.Reward,
+            Bank: action.payload.Bank,
+            SelectedCheckOut: state.SelectedCheckOut,
+            SelectCutleries: state.SelectCutleries,
+            storeName: action.payload.storeName,
+            TrxDate: action.payload.TrxDate,
+          };
+          return {
+            ...state,
+            PastOrder: [...state.PastOrder, temp],
+            PaymentStatus: PaymentStatus.Pending,
+          };
+        case PaymentStatus.Success:
+          let temp1 = state.PastOrder[state.PastOrder.length - 1];
+          {
+            temp1.PaymentStatus = PaymentStatus.Success;
+          }
+          let temp2: any[] = [
+            ...state.PastOrder,
+            (state.PastOrder[state.PastOrder.length - 1] = temp1),
+          ];
+
+          return {
+            ...state,
+            PastOrder: temp2,
+            PaymentStatus: PaymentStatus.Success,
+          };
+
+        default:
+          return { ...state, PaymentStatus: PaymentStatus.Pending };
+      }
+
     case ADDBANK:
       let temp: any[] = state.Payment.BankDetails;
       let length = temp?.length;

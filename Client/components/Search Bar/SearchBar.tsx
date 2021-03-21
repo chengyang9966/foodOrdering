@@ -3,6 +3,7 @@ import { BackHandler, StyleSheet } from "react-native";
 import { View, Text, TextInput, Image, Dimensions } from "react-native";
 import LocationContext from "../../State/Location/LocationContext";
 import { Colors, IconButton, Appbar } from "react-native-paper";
+import PageSize from "../../Helper/PageSize";
 export interface SearchBarProps {
   placeholder?: string;
   multiline?: boolean;
@@ -21,8 +22,7 @@ const SearchBar = (props: SearchBarProps) => {
     navigation,
     routeName,
   } = props;
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
+  const { windowHeight, windowWidth } = PageSize();
   const locationContext = useContext(LocationContext);
   const { SearchLocation, Reset } = locationContext;
   const [text, SetText] = useState("");
